@@ -1,0 +1,33 @@
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
+<module>
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.metaaps.webapps.libraries.widgets"/>
+    <inherits name="com.metaaps.webapps.libraries.mapwidgets"/>
+    <inherits name="com.metaaps.webapps.libraries.properties"/>
+
+    <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+
+    <!-- Other module inherits                                      -->
+    <inherits name="com.google.gwt.activity.Activity"/>
+    <inherits name="com.google.gwt.place.Place"/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.gwt.resources.Resources" />
+    <inherits name="com.google.gwt.xml.XML"/>
+    <inherits name="com.google.gwt.user.RemoteServiceObfuscateTypeNames"/>
+    
+    <!--EarthImages API-->
+    <inherits name="com.metaaps.webapps.earthimages.extapi.eiapi"/>
+    <inherits name="com.geocento.webapps.earthimages.productpublisher.publisher"/>
+
+    <set-property name="compiler.useSourceMaps" value="true"/>
+
+    <set-configuration-property name="includeSourceMapUrl" value="src/__HASH___sourceMap__FRAGMENT__.json"/>
+
+    <!-- Specify the paths for translatable code                    -->
+    <source path='client'/>
+    <source path='share'/>
+
+</module>

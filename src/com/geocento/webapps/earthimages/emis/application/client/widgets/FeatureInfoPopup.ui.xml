@@ -1,0 +1,71 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.application.client.widgets">
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.widgets.FeatureInfoPopup.Style">
+
+        @def niceblue #0677be;
+        @def nicegreen #06be77;
+        @def nicered #be0677;
+        @def niceorange #F89406;
+        @def niceyellow #F1EA18;
+        @def paleblue #c0d9fb;
+        @def grayblue #f0f0f8;
+        @def borderGray #aaa;
+        @def backgroundGray #eee;
+
+        .panel {
+        }
+
+        .message {
+            margin: 50px 20px;
+        }
+
+        .buttons {
+            margin: 10px;
+            padding-top: 5px;
+        }
+
+        .portlet {
+            margin: 0px !important;
+        }
+
+        .values {
+            width: 100%;
+            margin: 10px 0px 0px;
+        }
+
+        .values tr td {
+            padding: 5px 20px;
+        }
+
+        .values tr td:first-child {
+            background: niceblue;
+            color: white;
+        }
+
+        .valuesPanel {
+            max-height: 300px;
+        }
+
+        .importFeature {
+            line-height: 30px;
+            text-decoration: underline;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <widget:ArrowedPopUpMenu width="500px">
+        <g:HTMLPanel addStyleNames="{style.panel}">
+            <widgets:NavigationPortlet addStyleNames="{style.portlet}" ui:field="portlet">
+                <g:ScrollPanel addStyleNames="{style.valuesPanel}">
+                    <g:Grid width="100%" addStyleNames="{style.values}" ui:field="propertiesGrid"></g:Grid>
+                </g:ScrollPanel>
+                <g:HTMLPanel addStyleNames="{style.buttons}">
+                    <widget:IconAnchor addStyleNames="{style.importFeature}" spacing="10" resource="{res.importSmall}" ui:field="importFeature">Import Feature</widget:IconAnchor>
+                </g:HTMLPanel>
+            </widgets:NavigationPortlet>
+            <widget:MessageLabel addStyleNames="{style.message}" ui:field="message"></widget:MessageLabel>
+        </g:HTMLPanel>
+    </widget:ArrowedPopUpMenu>
+</ui:UiBinder>

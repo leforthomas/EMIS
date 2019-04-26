@@ -1,0 +1,212 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:widget="urn:import:com.geocento.webapps.earthimages.emis.application.client.widgets"
+             xmlns:lib="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:views="urn:import:com.geocento.webapps.earthimages.emis.application.client.views"
+        >
+    <ui:image field="cart" src="../style/img/cartIcon.png"/>
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.OrderTemplateViewImpl.Style">
+
+        .content {
+            position: fixed;
+            top: 65px;
+            bottom: 0px;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            z-index: 0;
+        }
+
+        .header, .content {
+        }
+
+        .contentPanel {
+            padding: 0px 50px 20px 50px;
+        }
+
+        .contentPanel {
+            min-height: 90%;
+            margin-right: 600px;
+        }
+
+        .logo {
+            float: left;
+        }
+
+        .address {
+            float: right;
+            font-size: 1em;
+            color: white;
+            margin-top: 30px;
+            margin-right: 30px;
+        }
+
+        .footer {
+            padding-top: 20px;
+        }
+
+        .toolbar > a {
+            clear: both;
+        }
+
+        .splitterBar {
+            position: absolute;
+            bottom: 0px;
+            width: 10px;
+            height: 100%;
+            cursor: ew-resize;
+        }
+
+        .splitterBar:hover {
+            border: 1px solid #888;
+            background: white;
+            opacity: 0.5;
+        }
+
+        .mapPanel {
+            position: fixed;
+            top: 85px;
+            right: 20px;
+            width: 550px;
+            bottom: 10px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .map {
+
+        }
+
+        .orderPanel {
+            margin-right: 450px;
+        }
+
+        .orderingSteps {
+        }
+
+        ul.orderingSteps {
+            list-style: none outside none;
+            padding: 0;
+            margin: 10px 0 0 30px;
+            vertical-align: middle;
+        }
+
+        ul.orderingSteps li {
+            display: list-item;
+            float: left;
+            padding: 0;
+            line-height: normal;
+        }
+
+        ul.orderingSteps li div {
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-left: 20px;
+            border-top: 1px solid;
+            border-top-color: white;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        ul.orderingSteps li div.currentStep,
+        ul.orderingSteps li div.stepsDone {
+            border-top-color: #E89216;
+            color: #E89216;
+        }
+
+        ul.orderingSteps li div.currentStep {
+            font-weight: bold;
+        }
+
+        .orderingStep {
+            /*
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        padding-left: 20px;
+                        border-top: 1px solid;
+                        border-top-color: white;
+                        font-size: 0.9em;
+                        color: white;
+                    }
+
+                    .orderingStep div.currentStep,
+                    .orderingStep div.stepsDone {
+                        border-top-color: #E89216;
+                        color: #E89216;
+                    }
+
+                    .orderingStep div.currentStep {
+                        font-weight: bold;
+            */
+        }
+
+        @Sprite .cart {
+            gwt-image: "cart";
+            width: auto;
+            height: auto;
+            background-repeat: no-repeat;
+            background-position: 50% top;
+        }
+
+        .homeIcon {
+            display: inline-block;
+            line-height: 80px;
+            float: left;
+            margin: 0px;
+            padding: 0px 20px;
+            z-index: 0;
+            background: #FFFFFF;
+            cursor: pointer;
+        }
+
+        .tabsPanel {
+            float: left;
+            margin-top: 20px;
+        }
+
+        .cart {
+
+        }
+
+        .loadingMessage {
+            margin: 30px 10px;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources"></ui:with>
+    <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <views:EILiteTemplateView ui:field="templateView">
+        <views:widgets>
+            <lib:UnOrderedList visible="false" addStyleNames="{style.orderingSteps}" ui:field="orderingSteps">
+                <lib:listItem>
+                    <g:Label ui:field="selectStep" addStyleNames="{style.stepsDone}">Select Products</g:Label>
+                </lib:listItem>
+                <lib:listItem>
+                    <g:Label ui:field="cartStep">Select Options</g:Label>
+                </lib:listItem>
+                <lib:listItem>
+                    <g:Label ui:field="requestStep">Send Request</g:Label>
+                </lib:listItem>
+                <lib:listItem>
+                    <g:Label ui:field="paymentStep">Review Order</g:Label>
+                </lib:listItem>
+                <lib:listItem>
+                    <g:Label ui:field="downloadStep">Access Products</g:Label>
+                </lib:listItem>
+            </lib:UnOrderedList>
+        </views:widgets>
+        <lib:SwitchWidget ui:field="switchPanels">
+            <lib:MessageLabel addStyleNames="{style.loadingMessage}" ui:field="loadingMessage"></lib:MessageLabel>
+            <g:HTMLPanel addStyleNames="{style.content}" ui:field="mainPanel">
+                <g:HTMLPanel addStyleNames="{style.mapPanel}" ui:field="mapContainer">
+                    <g:HTMLPanel addStyleNames="{style.splitterBar}" ui:field="splitterBar"></g:HTMLPanel>
+                </g:HTMLPanel>
+                <g:HTMLPanel addStyleNames="{style.contentPanel}" ui:field="contentPanel">
+                    <g:HTMLPanel ui:field="content">
+                    </g:HTMLPanel>
+                    <widget:Footer addStyleNames="{style.footer}" ui:field="footer"></widget:Footer>
+                </g:HTMLPanel>
+            </g:HTMLPanel>
+        </lib:SwitchWidget>
+    </views:EILiteTemplateView>
+</ui:UiBinder>

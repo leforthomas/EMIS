@@ -1,0 +1,35 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	    .footer {
+			padding: 20px 0px;
+			font-size: 0.8em !important;
+			text-shadow: 0px 0px 3px white;
+	    }
+	    .footer > a {
+			margin: 0px 10px;
+			color: #0066CC;
+	    }
+	    .geocentoLink {
+			padding: 5px 0px 5px 20px;
+			margin: 0px 3px;
+            background: url('./img/geocento_logo_white_icon.png') no-repeat 0 center;
+		}
+
+	</ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources" />
+	<g:HTMLPanel>
+		<p style="background: #fff;" class="{style.footer}">
+			<span ui:field="applicationName"/> is powered by <g:Anchor href="http://www.geocento.com" addStyleNames="{style.geocentoLink}" target="_blank">EarthImages</g:Anchor> - Copyright <span ui:field="copyrightDates"></span>. All rights reserved.
+            <a target="_blank" href="http://geocento.com/satellite-imagery-online-provider/" ui:field="contactUs">Contact Us</a>
+			<a target="_blank" href="http://geocento.com/meet-the-imagery-experts/" ui:field="aboutUs">About Us</a>
+		</p>
+		<p class="{style.footer}">
+            <a target="_blank" href="https://www.facebook.com/GeoCento-254974811230928/" class="logo-sprite icon-fb"><!-- --></a>
+            <a target="_blank" href="https://twitter.com/Geocento" class="logo-sprite icon-tw"><!-- --></a>
+            <a target="_blank" href="https://www.linkedin.com/company/geocento" class="logo-sprite icon-li"><!-- --></a>
+            <a target="_blank" href="https://www.youtube.com/watch?v=63xgrinqIsc" class="logo-sprite icon-yt"><!-- --></a>
+		</p>
+	</g:HTMLPanel>
+</ui:UiBinder>

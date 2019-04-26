@@ -1,0 +1,55 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:e="urn:import:com.metaaps.webapps.libraries.client.property.editor"
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+        >
+	<ui:style>
+		.panel {
+			padding: 10px;
+		}
+		.editorsPanel {
+			padding: 5px;
+			overflow-x: hidden;
+		}
+		.title {
+			background: #f0f0f0;
+			padding: 10px;
+			font-weight: bold;
+		}
+		.comments {
+			padding: 10px 0px;
+			font-style: italic;
+		}
+		.buttons {
+			margin-top: 10px;
+			padding-top: 5px;
+			border-top: 1px solid #eee;
+			text-align: right;
+		}
+		.buttons a {
+			display: inline-block;
+			margin: 5px;
+		}
+	</ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+	<g:HTMLPanel>
+		<widget:BasePopup ui:field="popup">
+			<widget:content>
+				<g:HTMLPanel width="350px" addStyleNames="{style.panel}">
+					<g:Label addStyleNames="{style.comments}" ui:field="comments"></g:Label>
+				    <g:HTMLPanel addStyleNames="{style.editorsPanel}" ui:field="editorsPanel">
+						<e:PropertiesEditor ui:field="propertiesEditor"></e:PropertiesEditor>
+				    </g:HTMLPanel>
+				</g:HTMLPanel>
+			</widget:content>
+			<widget:footer>
+				<g:HTMLPanel addStyleNames="{style.buttons}">
+					<g:Anchor addStyleNames="{res.style.eiOrangeAnchorButton}" ui:field="done">Done</g:Anchor>
+					<g:Anchor addStyleNames="{res.style.eiBlueAnchorButton}" ui:field="cancel">Cancel</g:Anchor>
+					<div style="clear: both;"></div>
+				</g:HTMLPanel>
+			</widget:footer>
+		</widget:BasePopup>
+	</g:HTMLPanel>
+</ui:UiBinder> 

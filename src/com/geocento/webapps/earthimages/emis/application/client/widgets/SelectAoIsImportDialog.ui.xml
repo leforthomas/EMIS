@@ -1,0 +1,65 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+        >
+	<ui:style field="style" type="com.geocento.webapps.earthimages.emis.application.client.widgets.SelectAoIsImportDialog.Style">
+        .panel {
+            padding: 5px;
+            width: 350px;
+        }
+
+        .selectAll {
+            cursor: pointer;
+        }
+
+        .message {
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .title {
+            padding: 7px 0px;
+            margin: 5px;
+        }
+
+        .listObservations {
+            padding-left: 10px;
+        }
+
+        .buttons {
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px solid #aaa;
+        }
+
+        .buttons a {
+            float: right;
+            margin: 5px;
+        }
+
+        .aoiWidget label {
+            margin-left: 5px;
+        }
+
+    </ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources" />
+	<g:HTMLPanel>
+		<widget:BasePopup titleText="Select Area of Interest to import" ui:field="popup">
+			<widget:content>
+				<g:HTMLPanel addStyleNames="{style.panel}">
+					<g:Label addStyleNames="{style.message}" ui:field="message"></g:Label>
+					<g:FlowPanel addStyleNames="{style.listObservations}" ui:field="listAoIs">
+					</g:FlowPanel>
+				</g:HTMLPanel>
+			</widget:content>
+			<widget:footer>
+				<g:HTMLPanel addStyleNames="{style.buttons}">
+					<g:Anchor addStyleNames="{res.style.eiGreyAnchorButton}" ui:field="cancelButton">Cancel</g:Anchor>
+					<g:Anchor addStyleNames="{res.style.eiOrangeAnchorButton}" ui:field="okButton">Import</g:Anchor>
+					<div style="clear: both;"></div>
+				</g:HTMLPanel>
+			</widget:footer>
+		</widget:BasePopup>
+	</g:HTMLPanel>
+</ui:UiBinder> 

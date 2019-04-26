@@ -1,0 +1,17 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+
+        .editor * {
+            font-family: monospace; /*'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;*/
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            letter-spacing: 0 !important;
+        }
+
+    </ui:style>
+
+    <g:HTMLPanel addStyleNames="{style.editor}" ui:field="panel">
+
+    </g:HTMLPanel>
+</ui:UiBinder>

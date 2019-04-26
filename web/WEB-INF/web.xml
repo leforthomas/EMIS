@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
+        <param-value>EMISID</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
+        <param-value>eineoid</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionPath</param-name>
+        <param-value>/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.MaxAge</param-name>
+        <param-value>864000</param-value>
+    </context-param>
+
+    <session-config>
+        <session-timeout>10000</session-timeout>
+    </session-config>
+
+    <listener>
+        <listener-class>com.geocento.webapps.earthimages.emis.common.server.ContextListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.geocento.webapps.earthimages.emis.common.server.ExpiryTrackerHttpSessionListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>NoCacheServlet</servlet-name>
+        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>cacheControl</param-name>
+            <param-value>public, max-age=0, must-revalidate</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>useFileMappedBuffer</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerService</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.application.server.services.CustomerServiceImpl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AoIsImportService</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.application.server.servlets.AoIsImportService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProxyService</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.application.server.services.ProxyServiceImpl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerLoginService</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.application.server.services.LoginServiceImpl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>unregisterAlert</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.application.server.servlets.UnregisterAlertServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminService</servlet-name>
+        <servlet-class>com.geocento.webapps.earthimages.emis.admin.server.services.AdministrationServiceImpl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExternalAPI</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>
+                com.geocento.webapps.earthimages.emis.extapi.services
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NoCacheServlet</servlet-name>
+        <url-pattern>*.nocache.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerService</servlet-name>
+        <url-pattern>/customer/customerservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AoIsImportService</servlet-name>
+        <url-pattern>/customer/aoisimport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerLoginService</servlet-name>
+        <url-pattern>/customer/loginservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProxyService</servlet-name>
+        <url-pattern>/customer/proxyservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>unregisterAlert</servlet-name>
+        <url-pattern>/unregister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminService</servlet-name>
+        <url-pattern>/admin/adminservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExternalAPI</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>Index.html</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/EINotFound.html</location>
+    </error-page>
+
+</web-app>

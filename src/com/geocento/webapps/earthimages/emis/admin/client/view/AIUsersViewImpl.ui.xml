@@ -1,0 +1,76 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:view="urn:import:com.geocento.webapps.earthimages.emis.admin.client.view"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.admin.client.widgets"
+        >
+	<ui:style type="com.geocento.webapps.earthimages.emis.admin.client.view.AIUsersViewImpl.Style">
+        .panel {
+            height: 100%;
+        }
+        .toolbar {
+            float: right;
+        }
+        ul.actions {
+            float: right;
+            list-style: none;
+        }
+        .actions li {
+            float: left;
+            padding: 0px 10px;
+            list-style: none;
+            vertical-align: middle;
+        }
+
+        .createUser {
+
+        }
+
+        .withDivider {
+            white-space: nowrap;
+        }
+
+        .withDivider:before {
+            content: "";
+        }
+
+        .withDivider:before {
+            height: 20px;
+            margin: 0px 20px;
+            border-left: 1px solid #333;
+        }
+
+    </ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+	<view:AIApplicationTemplateView ui:field="templateView">
+        <g:HTMLPanel>
+            <div style="background: #f0f0f0; padding: 10px; margin: 10px; overflow: hidden;">
+                <ul class="{style.actions}">
+                    <li>
+                        <widget:TextBox placeHolder="Enter user name or email" ui:field="searchBox"></widget:TextBox>
+                    </li>
+                    <li>
+                        <g:Button ui:field="refreshButton">Refresh</g:Button>
+                    </li>
+                    <li>
+                        <div class="{style.withDivider}">
+                            <g:Button addStyleNames="{style.createUser}" ui:field="createUser">Create User</g:Button>
+                        </div>
+                    </li>
+                    <li>
+                        <g:FormPanel ui:field="formPanel">
+                            <widget:IconAnchor resource="{res.download}" text="Download as CSV" tooltip="Download the full list of users as csv file" ui:field="downloadUsers"></widget:IconAnchor>
+                        </g:FormPanel>
+                    </li>
+                    <li>
+                        <widget:IconAnchor resource="{res.download}" text="Download all transactions" tooltip="Download the full list of users transactions as csv file" ui:field="downloadTransactions"></widget:IconAnchor>
+                    </li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <widgets:UserList width="100%" ui:field="userList">
+            </widgets:UserList>
+        </g:HTMLPanel>
+	</view:AIApplicationTemplateView>
+</ui:UiBinder> 

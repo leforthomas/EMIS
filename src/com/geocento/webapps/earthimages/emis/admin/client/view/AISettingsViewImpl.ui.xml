@@ -1,0 +1,93 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:editor="urn:import:com.metaaps.webapps.libraries.client.property.editor"
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:view="urn:import:com.geocento.webapps.earthimages.emis.admin.client.view"
+        >
+	<ui:style type="com.geocento.webapps.earthimages.emis.admin.client.view.AISettingsViewImpl.Style" src="../../../common/client/style/Defs.css">
+
+        .panel {
+            padding: 20px;
+            width: 960px;
+        }
+
+        .saveButton {
+            float: right;
+        }
+
+        .editors {
+            margin-left: 20px;
+            padding: 10px;
+        }
+
+        .settings {
+            width: 100%;
+            margin: 0px;
+        }
+        .settings tr td {
+            padding: 10px 20px;
+            border: 1px solid white;
+        }
+        .settings tr td:first-child {
+            width: 250px;
+            background: niceblue;
+            color: white;
+            font-weight: bold;
+        }
+
+        .testEmail {
+            padding: 20px;
+        }
+        .testEmail button {
+            float: right;
+        }
+
+        .planetAccountValues {
+            margin: 20px;
+        }
+
+    </ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+	<view:AIApplicationTemplateView ui:field="templateView">
+        <g:HTMLPanel addStyleNames="{style.panel}">
+            <div style="background: #f0f0f0; padding: 10px; margin: 10px 0px; overflow: hidden;">
+                <g:Button ui:field="uploadChanges" addStyleNames="{style.saveButton}">Upload Changes</g:Button>
+                <p>Application settings</p>
+            </div>
+            <g:Grid addStyleNames="{style.settings}" ui:field="settings"></g:Grid>
+            <widget:ExpandWidget text="Email server settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="emailServerSettings"></editor:PropertiesInEditor>
+                <g:HTMLPanel addStyleNames="{style.testEmail}">
+                    <g:Button ui:field="testEmail">Test Email</g:Button>
+                    <div style="clear: both;"></div>
+                </g:HTMLPanel>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Email notification settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="emailNotificationSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="EarthImages API settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="apiSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Braintree settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="braintreeSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Slack settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="slackSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Xero settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="xeroSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="HubSpot settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="hubspotSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Customer application settings" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="customerApplicationSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+            <widget:ExpandWidget text="Others" expanded="true">
+                <editor:PropertiesInEditor addStyleNames="{style.editors}" ui:field="otherSettings"></editor:PropertiesInEditor>
+            </widget:ExpandWidget>
+        </g:HTMLPanel>
+        <g:HTMLPanel addStyleNames="{style.planetAccountValues}" ui:field="planetAccountValues"></g:HTMLPanel>
+	</view:AIApplicationTemplateView>
+</ui:UiBinder> 

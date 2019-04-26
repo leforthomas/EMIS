@@ -1,0 +1,189 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:datepicker="urn:import:com.google.gwt.user.datepicker.client"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.application.client.widgets"
+>
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.widgets.DateRangePicker.Style">
+
+        .enabled {
+
+        }
+
+        .focus {
+            border-color: blue;
+        }
+
+        .backMonth {
+            float: left;
+        }
+
+        .forwardMonth {
+            float: right;
+        }
+
+        .monthPanel {
+            padding: 5px;
+            background: #ccf;
+            text-align: center;
+        }
+
+        .day {
+        }
+
+        .selected {
+        }
+
+        .dateRanges {
+
+        }
+
+        .controls {
+            margin-left: 10px;
+        }
+
+        .apply, .cancel, table.controls tr td, .controls select {
+            font-size: 0.9em;
+        }
+
+        .apply {
+            float: left;
+        }
+
+        .cancel {
+            float: right;
+        }
+
+        .buttons {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #888;
+        }
+
+        .error {
+            border-color: red;
+        }
+
+        .arrowDown {
+            border-color: white transparent transparent;
+            border-style: solid dashed dashed;
+            border-width: 5px 5px 0;
+            display: inline-block;
+            font-size: 0;
+            height: 0;
+            left: 0;
+            line-height: 0;
+            position: relative;
+            top: -2px;
+            width: 0;
+            margin-left: 10px;
+        }
+
+        .datePicker {
+        }
+
+        .verticalLine {
+            margin: 20px 10px;
+            border-right: 1px solid #333;
+        }
+
+        table.datePicker tr td {
+            border: transparent !important;
+        }
+
+        table.datePicker tr td div {
+            border: transparent !important;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.metaaps.webapps.libraries.client.widget.style.StyleResources"></ui:with>
+    <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <widgets:MenuArrowedPanel text="" spacing="10" ui:field="panel">
+        <g:HTMLPanel>
+            <g:HorizontalPanel>
+                <g:Grid>
+                    <g:row>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.monthPanel}">
+                                <g:Anchor addStyleNames="{style.backMonth}" ui:field="backMonth"></g:Anchor>
+                                <g:Anchor ui:field="firstMonthLabel"></g:Anchor>
+                            </g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel></g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.monthPanel}">
+                                <g:Anchor ui:field="secondMonthLabel"></g:Anchor>
+                            </g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel></g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.monthPanel}">
+                                <g:Anchor addStyleNames="{style.forwardMonth}" ui:field="forwardMonth"></g:Anchor>
+                                <g:Anchor ui:field="thirdMonthLabel"></g:Anchor>
+                            </g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel></g:HTMLPanel>
+                        </g:customCell>
+                    </g:row>
+                    <g:row>
+                        <g:customCell>
+                            <datepicker:CalendarRange addStyleNames="{style.datePicker}" ui:field="firstMonth"></datepicker:CalendarRange>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.verticalLine}"></g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <datepicker:CalendarRange addStyleNames="{style.datePicker}" ui:field="secondMonth"></datepicker:CalendarRange>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.verticalLine}"></g:HTMLPanel>
+                        </g:customCell>
+                        <g:customCell>
+                            <datepicker:CalendarRange addStyleNames="{style.datePicker}" ui:field="thirdMonth"></datepicker:CalendarRange>
+                        </g:customCell>
+                        <g:customCell>
+                            <g:HTMLPanel addStyleNames="{style.verticalLine}"></g:HTMLPanel>
+                        </g:customCell>
+                    </g:row>
+                </g:Grid>
+                <g:HTMLPanel addStyleNames="{style.controls}">
+                    <g:Grid cellPadding="5">
+                        <g:row>
+                            <g:cell>
+                                Range
+                            </g:cell>
+                            <g:customCell>
+                                <g:ListBox width="130px" addStyleNames="{style.dateRanges}" ui:field="dateRanges"></g:ListBox>
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:cell>
+                                Start
+                            </g:cell>
+                            <g:customCell>
+                                <g:TextBox width="120px" ui:field="startDate"></g:TextBox>
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:cell>
+                                Stop
+                            </g:cell>
+                            <g:customCell>
+                                <g:TextBox width="120px" ui:field="stopDate"></g:TextBox>
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                    <g:HTMLPanel addStyleNames="{style.buttons}">
+                        <g:Anchor addStyleNames="{resCustomer.style.actionAnchorButton}, {style.apply}" ui:field="apply">Apply</g:Anchor>
+                        <g:Anchor addStyleNames="{resCustomer.style.cancelActionAnchorButton}, {style.cancel}" ui:field="cancel">Cancel</g:Anchor>
+                        <div style="clear: both;"></div>
+                    </g:HTMLPanel>
+                </g:HTMLPanel>
+            </g:HorizontalPanel>
+        </g:HTMLPanel>
+    </widgets:MenuArrowedPanel>
+</ui:UiBinder>

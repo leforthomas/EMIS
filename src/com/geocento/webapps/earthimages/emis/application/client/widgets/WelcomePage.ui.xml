@@ -1,0 +1,170 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget">
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.widgets.WelcomePage.Style">
+
+        .panel {
+            border: 1px solid black;
+        }
+
+        .description, .logosPanel, .actions {
+            margin: 0px;
+            padding: 25px;
+        }
+
+        .header {
+            padding: 10px;
+            background: white;
+        }
+
+        .logo {
+            float: left;
+        }
+
+        .welcomeTitle {
+            margin: 0px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #F19106;
+        }
+
+        .welcomeMessage {
+            margin: 0px;
+            padding: 5px 0px;
+            font-size: 1em;
+            white-space: nowrap;
+            color: #585756;
+        }
+
+        .description, .actions {
+            background: #585756;
+        }
+
+        .description {
+
+        }
+
+        .logosPanel {
+            background: #eee;
+        }
+
+        .logos {
+
+        }
+
+        .logos ul {
+            list-style: none;
+            margin: 10px 0px;
+            padding: 0px;
+            vertical-align: middle;
+        }
+
+        .logos ul li {
+            display: inline-block;
+            margin: 0px;
+            padding: 0px 10px 0px 0px;
+        }
+
+        .logos ul li img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .actions a {
+            display: inline-block;
+        }
+
+        .support {
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        /*
+                @url arrowStyle arrowStyle;
+        */
+        ul.items li {
+            list-style-image: none;
+            color: white;
+        }
+
+        .title {
+            margin: 0px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .whiteTitle {
+            color: white;
+        }
+
+        .greyTitle {
+            color: #585756;
+        }
+
+        .headerIntro {
+            margin: 0px 0px 0px 200px;
+            padding: 10px 20px;
+        }
+
+        .glassPanel {
+            background-color: #ffffff;
+            opacity: 0.5;
+            z-index: 1000;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <g:HTMLPanel addStyleNames="{style.panel}" width="650px">
+        <g:HTMLPanel addStyleNames="{style.header}">
+            <g:Image addStyleNames="{style.logo}" resource="{res.logoEIExpressOrange}"></g:Image>
+            <g:HTMLPanel addStyleNames="{style.headerIntro}">
+                <p class="{style.welcomeTitle}">WELCOME</p>
+                <p class="{style.welcomeMessage}">Web-based platform for searching, comparing and accessing imagery</p>
+            </g:HTMLPanel>
+            <div style="clear:both;"></div>
+        </g:HTMLPanel>
+        <g:HTMLPanel addStyleNames="{style.description}">
+            <p class="{style.title} {style.whiteTitle}">What can EarthImages do for you?</p>
+            <ul class="{style.items}">
+                <li>
+                    Impartial access to free and commercial imagery
+                </li>
+                <li>
+                    Compare imagery from a growing range of satellites
+                </li>
+                <li>
+                    Over 25 million images dating back to 1982, and growing
+                </li>
+                <li>
+                    Updated with the latest imagery
+                </li>
+                <li>
+                    Finally, EarthImages is free to use with no mark-up added to your data
+                </li>
+            </ul>
+        </g:HTMLPanel>
+        <g:HTMLPanel addStyleNames="{style.logosPanel}">
+            <p class="{style.title} {style.greyTitle}">Our Partners</p>
+            <g:HTMLPanel addStyleNames="{style.logos}">
+                <widget:UnOrderedList ui:field="logos">
+                </widget:UnOrderedList>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+        <g:HTMLPanel visible="false" addStyleNames="{style.actions}">
+            <div>
+                <g:Anchor addStyleNames="{res.style.actionAnchorButton}" ui:field="start">Start Using EarthImages</g:Anchor>
+                <div style="clear:both;"></div>
+            </div>
+            <div>
+                <g:Anchor addStyleNames="{style.support}" target="_blank" ui:field="support">Do you need support?</g:Anchor>
+                <div style="clear:both;"></div>
+            </div>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

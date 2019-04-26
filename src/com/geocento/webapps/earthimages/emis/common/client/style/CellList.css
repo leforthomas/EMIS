@@ -1,0 +1,22 @@
+/* This file is based on the CSS for a GWT CellList:
+ * https://gwt.googlesource.com/gwt/+/master/./user/src/com/google/gwt/user/cellview/client/CellList.css
+ * The primary purpose is to arrange for the <div> elements that contain each cell to be laid out inline (horizontally).
+ */
+
+/* Using inline-block, following Thomas Broyer's recommendations (with link to justification) here:
+ * https://groups.google.com/forum/#!topic/google-web-toolkit/rPfCO5H91Rk
+ */
+.cellListEvenItem {
+    display: inline-block;
+    padding: 5px;
+}
+
+.cellListOddItem {
+    display: inline-block;
+    padding: 5px;
+}
+
+.cellListSelectedItem {
+    background-image: none;
+    background-color: #93c022 !important;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:l="urn:import:com.metaaps.webapps.libraries.client.widget"
+        >
+    <ui:style type="com.geocento.webapps.earthimages.emis.admin.client.view.AIApplicationTemplateView.Style" src="../../../common/client/style/Defs.css">
+
+        .banner {
+            position: relative;
+            height: 100%;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .content {
+            position: fixed;
+            top: 55px;
+            width: 100%;
+            bottom: 0px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .panel {
+            height: 100%;
+            position: relative;
+            background: white;
+        }
+
+        .header, .content {
+            min-width: 960px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            z-index: 3;
+            background: #262626;
+            font-size: 12px;
+            text-transform: uppercase;
+            overflow: hidden;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+        }
+
+        .homeIcon {
+            display: inline-block;
+            height: 100%;
+            float: left;
+            margin: 0px;
+            margin-right: 20px;
+            padding: 0px 20px;
+            background: #ffffff;
+            z-index: 0;
+            cursor: pointer;
+        }
+        .homeTitle {
+            padding-right: 20px;
+            float: left;
+        }
+
+        .applicationName {
+            margin: 0px;
+            margin-right: 20px;
+            font-size: 1.2em;
+            color: white;
+        }
+
+        .applicationItem:hover {
+        }
+
+        .divider, .dividerLeft {
+            height: 50px;
+            margin: 0px;
+            margin-right: 20px;
+            border-left: 1px solid #888;
+            border-right: 1px solid #eee;
+        }
+        .dividerLeft {
+            float: left;
+        }
+
+        .rightPanel {
+            height: 100%;
+            position: absolute;
+            right: 0px;
+            display: inline-block;
+            padding-right: 10px;
+            z-index: 1000;
+        }
+        .rightPanel ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rightPanel li {
+            float: left;
+        }
+
+        .tabsPanel {
+            float: left;
+            font-size: 0.9em;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+    <g:HTMLPanel addStyleNames="{style.panel}" ui:field="panel">
+        <g:HTMLPanel addStyleNames="{style.header}">
+            <g:HTMLPanel addStyleNames="{style.banner}" ui:field="banner">
+                <l:IconAnchor addStyleNames="{style.homeIcon}" simple="true" resource="{res.logoApplication}" href="#" text="" ui:field="homeIcon"/>
+                <l:IconAnchor addStyleNames="{style.homeTitle}" text="Administration" simple="true"/>
+                <g:HTMLPanel addStyleNames="{style.dividerLeft}"></g:HTMLPanel>
+                <g:HTMLPanel addStyleNames="{style.tabsPanel}">
+                    <l:UnOrderedList addStyleNames="{res.style.pastilleTabs}">
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="users">Users</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor visible="false" addStyleNames="{style.applicationName}" ui:field="sensors">Sensors</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="orders">Product Orders</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor visible="false" addStyleNames="{style.applicationName}" ui:field="orderingPolicies">Policies</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="publish">Publish</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="samples">Samples</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="settings">Settings</g:Anchor>
+                        </l:listItem>
+                        <l:listItem>
+                            <g:Anchor addStyleNames="{style.applicationName}" ui:field="logging">Logging</g:Anchor>
+                        </l:listItem>
+                    </l:UnOrderedList>
+                </g:HTMLPanel>
+                <g:HTMLPanel addStyleNames="{style.rightPanel}">
+                    <ul>
+                        <li>
+                            <l:IconAnchor resource="{res.logOut}" simple="true" tooltip="Log out from the current account" ui:field="logOut"></l:IconAnchor>
+                        </li>
+                    </ul>
+                </g:HTMLPanel>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+        <g:HTMLPanel addStyleNames="{style.content}">
+            <g:HTMLPanel height="100%" ui:field="content">
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

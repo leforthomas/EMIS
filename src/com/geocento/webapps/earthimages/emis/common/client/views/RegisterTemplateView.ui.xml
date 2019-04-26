@@ -1,0 +1,63 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+        >
+	<ui:style src="../../client/style/Defs.css">
+		.panel {
+			width: 100%;
+			height: 100%;
+			overflow-x: hidden;
+			overflow-y: auto;
+            background-color: #043d6b;
+            background-position: center center;
+            background-repeat: no-repeat; /* Safari 4-5, Chrome 1-9 */
+            /* Can't specify a percentage size? Laaaaaame. */
+            background-image: radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -o-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -ms-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -moz-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -webkit-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            filter: literal("progid:DXImageTransform.Microsoft.gradient(startColorstr='#043d6b', endColorstr='#06071e',GradientType=0)"); /* IE6-9 fallback on horizontal gradient */
+		}
+		.centerFrame {
+			padding: 50px 0px;
+		}
+		.centerPanel, .footer {
+			margin: auto;
+			width: 960px;
+			padding: 0px;
+		}
+		.centerPanel {
+			min-height: 75%;
+		}
+		.logoImage {
+		}
+		.content {
+			width: 350px;
+			margin: auto;
+			padding: 20px;
+			background: white;
+			border: 5px solid #2391A1;
+		}
+		.footerFrame {
+			margin: 50px 0px;
+		}
+	</ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+	<g:HTMLPanel addStyleNames="{style.panel}" ui:field="panel">
+		<g:HTMLPanel ui:field="centerFrame" addStyleNames="{style.centerFrame}">
+			<g:HTMLPanel addStyleNames="{style.centerPanel}">
+				<g:HTMLPanel addStyleNames="{style.content}, border-radius-5">
+                    <div style="text-align: center;">
+                        <g:Image addStyleNames="{style.logoImage}" resource="{res.logoLarge}"></g:Image>
+                    </div>
+                    <g:FlowPanel ui:field="content">
+                    </g:FlowPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+		<g:HTMLPanel addStyleNames="{style.footerFrame}" ui:field="footerHolder">
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+		
+</ui:UiBinder>

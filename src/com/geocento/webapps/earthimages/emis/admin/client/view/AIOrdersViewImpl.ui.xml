@@ -1,0 +1,42 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:view="urn:import:com.geocento.webapps.earthimages.emis.admin.client.view"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.admin.client.widgets"
+        >
+	<ui:style type="com.geocento.webapps.earthimages.emis.admin.client.view.AIOrdersViewImpl.Style" src="../../../common/client/style/Defs.css">
+
+        .panel {
+            padding: 20px;
+        }
+
+        .saveButton {
+            float: right;
+        }
+
+        .filter {
+            float: right;
+        }
+
+    </ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+	<view:AIApplicationTemplateView ui:field="templateView">
+        <g:HTMLPanel addStyleNames="{style.panel}">
+            <div style="background: #f0f0f0; padding: 10px; margin: 10px 0px; overflow: hidden;">
+                <p>Active product orders</p>
+            </div>
+            <g:HTMLPanel>
+                <div style="background: #f0f0f0; padding: 10px; margin-bottom: 10px; overflow: hidden;">
+                    <g:TextBox addStyleNames="{style.filter}" ui:field="filter"></g:TextBox>
+                    <g:Button ui:field="refreshLogfile">Refresh</g:Button>
+                    <g:Button ui:field="createOrder">Create Order</g:Button>
+                    <g:Button ui:field="addNewProduct">Add Product</g:Button>
+                    <g:Button ui:field="uploadLicense">Upload signed license</g:Button>
+                    <g:Button ui:field="downloadOrders">Download orders</g:Button>
+                    <div style="clear: both;"></div>
+                </div>
+                <widgets:OrdersList ui:field="ordersList"></widgets:OrdersList>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+	</view:AIApplicationTemplateView>
+</ui:UiBinder> 

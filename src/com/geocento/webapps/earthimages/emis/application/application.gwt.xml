@@ -1,0 +1,41 @@
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to="customer">
+
+                <!-- Inherit the core Web Toolkit stuff.                  -->
+        <inherits name='com.google.gwt.user.User'/>
+                <!--   common libraries -->
+        <inherits name="com.geocento.webapps.earthimages.emis.common.common"></inherits>
+        <inherits name='com.metaaps.webapps.libraries.widgets'/>
+        <inherits name='com.metaaps.webapps.libraries.mapwidgets'/>
+        <inherits name='com.metaaps.webapps.libraries.maps'/>
+        <inherits name='com.metaaps.webapps.libraries.properties'/>
+        <inherits name='com.metaaps.webapps.libraries.animations'/>
+        <inherits name='com.metaaps.webapps.libraries.interpreter'/>
+        <inherits name='com.metaaps.webapps.libraries.draganddrop'/>
+        <inherits name="com.metaaps.webapps.libraries.social"/>
+                <!-- websockets support -->
+        <inherits name="org.realityforge.gwt.websockets.WebSockets"/>
+
+        <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+
+                <!-- Other module inherits                                      -->
+        <inherits name="com.google.gwt.activity.Activity"/>
+        <inherits name="com.google.gwt.place.Place"/>
+        <inherits name="com.google.gwt.i18n.I18N"/>
+        <inherits name="com.google.gwt.user.RemoteServiceObfuscateTypeNames"/>
+        <inherits name="com.github.nmorel.gwtjackson.GwtJackson"/>
+
+                <!-- Use ClientFactoryImpl by default -->
+        <replace-with class="com.geocento.webapps.earthimages.emis.application.client.ClientFactoryImpl">
+        <when-type-is class="com.geocento.webapps.earthimages.emis.application.client.ClientFactory"/>
+        </replace-with>
+
+                <!-- Specify the app entry point class.                   -->
+        <entry-point class='com.geocento.webapps.earthimages.emis.application.client.Application'/>
+
+                <!-- Specify the paths for translatable code                    -->
+        <source path='client'/>
+        <source path='share'/>
+
+</module>

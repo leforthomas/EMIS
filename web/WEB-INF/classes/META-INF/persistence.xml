@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+    <persistence-unit name="database">
+    	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.Settings</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Reporting</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.User</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.UserSettings</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.UserLayers</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.UserLayer</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.UserCart</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Credit</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Transaction</class>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.AOI</class>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.AOIPolygon</class>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.AOICircle</class>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.AOIRectangle</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductRequest</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.TaskingRequest</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductEntity</class>
+        <class>com.geocento.webapps.earthimages.emis.common.share.entities.UserOrderParameter</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Order</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductOrder</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductSample</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductFetchTask</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductPublishRequest</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Workspace</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.PublishedLayer</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductLayer</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ExternalLayer</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.ImageAlert</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Signature</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.SignedLicense</class>
+        <!-- Converters -->
+        <class>com.geocento.webapps.earthimages.emis.common.server.utils.GeometryConverter</class>
+        <properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/emis" />
+			<property name="javax.persistence.jdbc.user" value="geocento" />
+			<property name="javax.persistence.jdbc.password" value="geocento" />
+
+			<!-- EclipseLink should create the database schema automatically -->
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode" value="database" />
+			
+			<!-- logging configuration -->
+ 			<property name="eclipselink.logging.level.sql" value="FINE"/>
+  			<property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

@@ -1,0 +1,80 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget">
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.widgets.CreditCardWidget.Style" field="style">
+        .firstColumn {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .expirationdateBox {
+            margin: 2px 2px 2px 0px;
+        }
+
+        .cvvHelp {
+            font-size: 0.8em;
+            text-decoration: underline;
+            color: blue;
+        }
+
+        .validationMessage {
+
+        }
+
+        .error {
+            border: 1px solid red;
+            color: red;
+        }
+
+        .saveCard {
+            float: right;
+        }
+
+    </ui:style>
+    <g:HTMLPanel>
+        <p>Please enter your credit card details below</p>
+        <div style="background: #f0f0f0; padding: 5px;">
+            <g:Grid cellPadding="5" >
+                <g:row>
+                    <g:cell styleName="{style.firstColumn}">Card Number</g:cell>
+                    <g:customCell>
+                        <g:TextBox width="200px" maxLength="19" ui:field="cardNumber"></g:TextBox>
+                    </g:customCell>
+                </g:row>
+                <g:row>
+                    <g:cell styleName="{style.firstColumn}">Expiration date</g:cell>
+                    <g:customCell>
+                        <g:HTMLPanel>
+                            <div style="float: left;">
+                                <div class="{style.expirationdateBox}">mm</div>
+                                <g:TextBox width="50px" maxLength="2" addStyleNames="{style.expirationdateBox}" ui:field="month"></g:TextBox> /
+                            </div>
+                            <div style="float: left; padding-left: 5px;">
+                                <div class="{style.expirationdateBox}">yyyy</div>
+                                <g:TextBox width="50px" maxLength="4" addStyleNames="{style.expirationdateBox}" ui:field="year"></g:TextBox>
+                            </div>
+                            <div style="clear: both;"/>
+                        </g:HTMLPanel>
+                    </g:customCell>
+                </g:row>
+                <g:row>
+                    <g:customCell styleName="{style.firstColumn}">
+                        <g:HTMLPanel>
+                            <div>CVV</div>
+                            <g:Anchor addStyleNames="{style.cvvHelp}" ui:field="CVVHelp">What's this?</g:Anchor>
+                        </g:HTMLPanel>
+                    </g:customCell>
+                    <g:customCell>
+                        <g:HTMLPanel>
+                            <g:TextBox width="50px" maxLength="4" ui:field="cvv"></g:TextBox>
+                            <widget:SelectionWidget text="save card" addStyleNames="{style.saveCard}" ui:field="saveCard"></widget:SelectionWidget>
+                        </g:HTMLPanel>
+                    </g:customCell>
+                </g:row>
+            </g:Grid>
+        </div>
+        <g:HTMLPanel ui:field="footer">
+        </g:HTMLPanel>
+        <widget:MessageLabel addStyleNames="{style.validationMessage}" ui:field="validationMessage"></widget:MessageLabel>
+    </g:HTMLPanel>
+</ui:UiBinder>

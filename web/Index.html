@@ -1,0 +1,150 @@
+<!doctype html>
+<!-- The DOCTYPE declaration above will set the     -->
+<!-- browser's rendering engine into                -->
+<!-- "Standards Mode". Replacing this declaration   -->
+<!-- with a "Quirks Mode" doctype is not supported. -->
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta property="og:title" content="EINEO"/>
+    <meta property="og:image" content="./img/earthimagesThumbnail.png"/>
+    <meta property="og:description" content="Find the best Satellite Imagery matching your needs"/>
+
+    <meta name="description" content="Find free and commercial imagery from the major optical and SAR suppliers">
+
+    <!-- for crawlers -->
+    <meta name="fragment" content="!">
+
+    <!-- for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>EMIS Prototype</title>
+
+    <link rel="icon" type="image/png" href="./favico.png">
+
+    <style>
+        /** Add css rules here for your application. */
+
+        html {
+            overflow: hidden;
+        }
+        body, td, a, div, p, select, input, button {
+            font-family: 'Oxygen', sans-serif !important;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #000 url('./img/earthimages.jpg') no-repeat center;
+            overflow: hidden;
+        }
+
+        .ball {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -230px;
+            margin-top: -230px;
+            background-color: transparent;
+            border-color: transparent rgba(0, 183, 229, 0.9) rgba(0, 183, 229, 0.9) transparent;
+            border-image: none;
+            border-radius: 460px;
+            border-right: 5px solid rgba(0, 183, 229, 0.9);
+            border-style: solid;
+            border-width: 5px;
+            box-shadow: 0 0 35px #2187E7;
+            height: 450px;
+            opacity: 0.9;
+            width: 450px;
+            -moz-animation: 15s linear 0s normal none infinite spin;
+            -webkit-animation: 15s linear 0s normal none infinite spin;
+        }
+
+        @-moz-keyframes spin {
+            0% { -moz-transform:rotate(0deg); }
+            100% { -moz-transform:rotate(360deg); }
+        }
+        @-webkit-keyframes spin {
+            0% { -webkit-transform:rotate(0deg); }
+            100% { -webkit-transform:rotate(360deg); }
+        }
+
+        /* loading frame css for the loading page */
+        #loadingframe {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            margin-top: -300px;
+            text-align: center;
+        }
+
+        #loadingframe > span {
+            padding-left: 10px;
+            font-size: 1.2em;
+            line-height: 2em;
+            text-transform: uppercase;
+            color: #2187E7;
+            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.25);
+        }
+
+        <!--[if IE]>
+        #loadingframe > span {
+            padding-left: 30px;
+            background: url("./img/loadinfo.net.gif") no-repeat left center;
+        }
+        <![endif]-->
+
+        .gwt-PopupPanelGlass {
+            z-index: 1000 !important;
+        }
+
+    </style>
+
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC61cY1T98Pr7jQxZpAmtWsxW97geuBO4c&libraries=geometry&language=en-GB"></script>
+
+    <!--                                            -->
+    <!-- This script is required bootstrap stuff.   -->
+    <!--                                            -->
+    <script type="text/javascript" language="javascript" src="application/application.nocache.js"></script>
+
+    <script type="application/javascript">
+        var mapsConfig = {
+            googleMapId: "roadmap",
+            bingMapsAPIKey: 'AnWRhVJTAYmWG0laRFk_Tq3nBxb4BM718C1IUyl0uCq1NkM9XlXkjKjDwNLMfTNf',
+            terrainProvider: {
+                url: '//terrain.geocento.com/',
+                credits: 'SRTM 900m tiles from NASA'
+            }
+        };
+    </script>
+
+    </head>
+
+    <!--                                           -->
+    <!-- The body can have arbitrary html, or      -->
+    <!-- you can leave the body empty if you want  -->
+    <!-- to create a completely dynamic ui         -->
+    <!--                                           -->
+    <body>
+
+    <div id="loading">
+        <div class="ball"></div>
+        <div id="loadingframe">
+            <span>Loading Application...</span>
+        </div>
+    </div>
+
+    </body>
+</html>

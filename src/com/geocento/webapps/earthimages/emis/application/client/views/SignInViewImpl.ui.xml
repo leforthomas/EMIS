@@ -1,0 +1,103 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:l="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:views="urn:import:com.geocento.webapps.earthimages.emis.common.client.views"
+        >
+	<ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.SignInViewImpl.Style">
+
+        .signinpanel {
+            margin: 15px 0px;
+        }
+
+        .title {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .containerpanel {
+            margin-top: 0px;
+        }
+
+        .signinanchor {
+            margin-left: 10px;
+        }
+
+        .errormessage {
+            padding: 10px 0px;
+            font-weight: bold;
+        }
+
+        .sidePanel {
+            background: #f4f6f8;
+            border-left: 3px solid #858687;
+            padding: 10px 5px;
+            color: #858687;
+        }
+
+        .passwdForgotten {
+            padding-left: 20px;
+            font-size: 0.9em;
+            text-decoration: underline !important;
+        }
+
+        .checkPanel {
+            padding-left: 10px;
+        }
+
+        .validated, .error {
+            font-weight: bold;
+        }
+
+        .signIn, .signUp {
+            display: block;
+        }
+
+        .signUpPanel {
+        }
+
+        .signUpPanel > input {
+            padding-right: 30px;
+        }
+
+        .tosAcceptance {
+            padding: 10px 5px;
+            background: #f0f0f0;
+            text-align: center;
+        }
+
+        .content {
+            /*
+            background-color: #043d6b;
+            background-position: center center;
+            background-repeat: no-repeat; !* Safari 4-5, Chrome 1-9 *!
+            !* Can't specify a percentage size? Laaaaaame. *!
+            background-image: radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -o-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -ms-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -moz-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            background-image: -webkit-radial-gradient(center center, circle cover, #043d6b, #06071e);
+            filter: literal("progid:DXImageTransform.Microsoft.gradient(startColorstr='#043d6b', endColorstr='#06071e',GradientType=0)"); !* IE6-9 fallback on horizontal gradient *!
+            */
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources" />
+    <views:RegisterTemplateView centerFrameStyleName="{style.content}" ui:field="templateView">
+		<g:FlowPanel addStyleNames="{style.signinpanel}" ui:field="signInPanel">
+			<g:VerticalPanel width="99%" spacing="10">
+                <g:Label addStyleNames="{style.title}">Sign in to your account</g:Label>
+				<l:TextBox placeHolder="User name or email" width="99%" ui:field="userName"></l:TextBox>
+				<l:PasswordTextBox placeHolder="Password" width="99%" ui:field="password"></l:PasswordTextBox>
+				<g:HorizontalPanel width="99%" verticalAlignment="middle">
+					<g:cell>
+						<g:CheckBox text="Remember me" value="true" ui:field="keepSignedIn"></g:CheckBox>
+					</g:cell>
+				</g:HorizontalPanel>
+				<l:MessageLabel ui:field="message" addStyleNames='{style.errormessage}'></l:MessageLabel>
+				<g:Anchor addStyleNames="{style.signIn}, {res.style.eiOrangeAnchorButton}" ui:field="signInButton">Sign-In</g:Anchor>
+			</g:VerticalPanel>
+		</g:FlowPanel>
+	</views:RegisterTemplateView>
+</ui:UiBinder> 

@@ -1,0 +1,63 @@
+.day {
+    text-align: center;
+    font-size: 0.8em;
+    padding: 3px;
+    color: #333;
+    cursor: pointer;
+}
+.day:hover {
+
+}
+
+.day, .weekendLabel, .weekdayLabel {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.dayIsWeekend {
+    color: #338;
+}
+
+.dayIsHighlighted {
+
+}
+
+.dayIsValueAndHighlighted {
+
+}
+
+.dayIsDisabled {
+    color: #aaa !important;
+    font-style: italic;
+}
+
+.days {
+}
+
+.weekendLabel, .weekdayLabel {
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #888;
+}
+
+.weekendLabel {
+    color: #338;
+}
+
+.dayIsFiller {
+    visibility: hidden;
+}
+
+.weekdayLabel {
+
+}
+
+.selected {
+    background: blue;
+    color: white !important;
+}
+
+.selected:hover {
+    background: orange;
+}

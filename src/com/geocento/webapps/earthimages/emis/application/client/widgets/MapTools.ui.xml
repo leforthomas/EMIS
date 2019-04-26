@@ -1,0 +1,64 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:l="urn:import:com.metaaps.webapps.libraries.client.widget">
+	<ui:style type="com.geocento.webapps.earthimages.emis.application.client.widgets.MapTools.Style">
+        .panel {
+            background: #1f1e1e;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .delimiter, .withDelimiter:before {
+            display: inline;
+            height: 8px;
+            vertical-align: middle;
+            margin: 0px 10px;
+            border-left: none;
+        }
+
+        .toolbarMenu {
+            padding: 5px;
+        }
+
+        .horizontalPanelBottom {
+            padding-left: 10px;
+            padding-bottom: 10px;
+        }
+
+        .horizontalResultPanel {
+            padding-left: 50px;
+            margin-bottom: 5px;
+        }
+
+        .withDelimiter:before {
+            content: "";
+        }
+
+        .addLayer {
+            min-width: 200px;
+            margin: 0px 20px;
+            line-height: 2em;
+            white-space: nowrap;
+            text-align: center;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    </ui:style>
+	<ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources" />
+	<g:HTMLPanel addStyleNames="{style.panel}">
+		<g:HorizontalPanel verticalAlignment="middle" ui:field="panel">
+            <l:IconAnchor text="" simple="true" tooltip="Set map extent to world view" resource="{res.mapExtent}" ui:field="worldZoom" addStyleNames="{style.toolbarMenu}"/>
+            <l:IconAnchor text="" simple="true" tooltip="Zoom back to previous map extent" resource="{res.zoomBack}" ui:field="zoomBack" addStyleNames="{style.toolbarMenu}"/>
+            <l:IconAnchor text="" simple="true" tooltip="Set Center and Boundaries of Map" resource="{res.setCenter}" ui:field="setCenter" addStyleNames="{style.toolbarMenu}"/>
+            <l:ToggledIconAnchor toggled="false" tooltip="Toggle display of lat, long information" ui:field="displayCoordinates" resource="{res.displayCoordinates}" addStyleNames="{style.toolbarMenu}"/>
+			<l:ToggledIconAnchor toggled="false" tooltip="Toggle coordinates grid display" resource="{res.worldGrid}" ui:field="showgrid" addStyleNames="{style.toolbarMenu}"/>
+			<l:IconAnchor text="" simple="true" tooltip="Change library" resource="{res.globeIcon}" ui:field="mapLibrary" addStyleNames="{style.toolbarMenu}"/>
+			<l:IconAnchor text="" simple="true" tooltip="Change base map" resource="{res.mapIcon}" ui:field="baseMap" addStyleNames="{style.toolbarMenu}"/>
+            <l:IconAnchor text="" simple="true" tooltip="Add layers" resource="{res.mapLayers}" ui:field="wmsLayers" addStyleNames="{style.toolbarMenu}"/>
+            <l:ToggledIconAnchor text="" toggled="false" tooltip="Press to enable feature info picker for WMS layers" resource="{res.infoWhiteSmall}" ui:field="featureInfo" addStyleNames="{style.toolbarMenu}"/>
+		</g:HorizontalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

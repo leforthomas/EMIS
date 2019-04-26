@@ -1,0 +1,252 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.application.client.widgets"
+             xmlns:views="urn:import:com.geocento.webapps.earthimages.emis.application.client.views"
+        >
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.ViewEventViewImpl.Style">
+
+        .content {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0px 30px;
+            color: #333;
+        }
+
+        .orderItems {
+            float: right;
+            margin-left: 10px !important;
+        }
+
+        .producOrder {
+
+        }
+
+        .commentOrderPanel {
+            clear: both;
+            padding: 20px 0px;
+        }
+
+        .comment {
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        .message {
+            margin: 10px 0px;
+            font-size: 1.4em;
+        }
+
+        .buttonsPanel {
+            margin: 20px 0px;
+        }
+
+        .buttonsPanel a {
+            margin-right: 20px;
+        }
+
+        .firstColumn {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .expirationdateBox {
+            margin: 2px 2px 2px 0px;
+        }
+
+        .cvvHelp {
+            font-size: 0.8em;
+            text-decoration: underline;
+            color: blue;
+        }
+
+        .introduction {
+            padding: 10px 5px;
+            background: #fee;
+        }
+
+        .validationMessage {
+            padding: 10px;
+        }
+
+        .error {
+            border: 1px solid red;
+            color: red;
+        }
+
+        .descriptionPayment {
+            margin: 10px 0px;
+        }
+
+        .submitPasswordPanel {
+            margin: 20px 0px;
+        }
+
+        .informationLinks {
+            text-decoration: underline !important;
+            color: blue !important;
+        }
+
+        .sliderBar {
+            background: #fff;
+            border: 1px solid #aaa;
+        }
+
+        .tickItem {
+            width: 6px;
+            height: 6px;
+            background: #cc3333;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+            cursor: pointer;
+        }
+
+        .tickItem:hover {
+            border-width: 2px;
+        }
+
+        .grow {
+            transition: all .2s ease-in-out;
+        }
+
+        .grow:hover {
+            transform: scale(1.1);
+        }
+
+        .header {
+            /*
+            position: absolute;
+            top: 80px;
+            height: 60px;
+            */
+        }
+
+        .orderStatusWidget, .actionWidget {
+            float: right;
+            margin-right: 10px;
+        }
+
+        .actionWidget {
+            font-weight: bold;
+        }
+
+        .actionButton {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .actionButton:hover {
+            background: #eee;
+        }
+
+        .packagePanel {
+            margin: 10px 0px;
+            padding: 5px;
+        }
+
+        .mapPanel {
+            position: absolute;
+            top: 22px;
+            bottom: 10px;
+        }
+
+        .paymentsPanel, .licensesRequired {
+            border-left: 3px solid cadetblue;
+            margin: 10px 0px 10px 10px;
+            padding: 10px 0 10px 20px;
+        }
+
+        .licensesRequired {
+            border-left-color: orange;
+        }
+
+        .paymentsPanel {
+        }
+
+        .paymentsPanel a {
+            display: inline-block;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+
+        .paymentMessage {
+            display: inline-block;
+        }
+
+        .prepaidValue {
+            margin: 50px 0px 0px;
+            font-style: italic;
+            color: #888888;
+        }
+
+        .makePaymentPanel {
+            line-height: 40px;
+            font-size: 0.9em;
+        }
+        .makePaymentPanel input {
+            vertical-align: middle;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources"></ui:with>
+    <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <views:OrderTemplateViewImpl ui:field="templateView">
+        <widget:SwitchWidget ui:field="switchPanels">
+            <g:HTMLPanel ui:field="passwordPanel">
+                <h1>Password protected order</h1>
+                <p>This order is password protected, please provide the password to view this order</p>
+                <div>
+                    <g:PasswordTextBox ui:field="password"></g:PasswordTextBox>
+                </div>
+                <g:HTMLPanel addStyleNames="{style.submitPasswordPanel}" ui:field="submitPasswordPanel"></g:HTMLPanel>
+            </g:HTMLPanel>
+            <g:HTMLPanel addStyleNames="{style.content}" ui:field="content">
+                <g:HTMLPanel addStyleNames="{style.header}">
+                    <g:HTMLPanel>
+                        <g:Anchor addStyleNames="{style.orderItems}, {resCustomer.style.actionAnchorButton}" ui:field="viewOrders">Back To Orders</g:Anchor>
+                        <widget:MessageLabel addStyleNames="{style.message}" ui:field="message"></widget:MessageLabel>
+                    </g:HTMLPanel>
+                    <g:HTMLPanel addStyleNames="{style.licensesRequired}" ui:field="licensesRequired"></g:HTMLPanel>
+                    <g:HTMLPanel addStyleNames="{style.paymentsPanel}" ui:field="paymentsPanel">
+                        <g:Label addStyleNames="{style.paymentMessage}" ui:field="paymentMessage"></g:Label>
+                        <g:Anchor addStyleNames="{res.style.eiBlueAnchor}" ui:field="payPrepaid">Make Payment</g:Anchor>
+                        <g:HTMLPanel addStyleNames="{style.makePaymentPanel}" ui:field="makePaymentPanel">
+                            <g:CheckBox ui:field="acceptTerms"></g:CheckBox>I accept the Geocento Ltd <a class="{style.informationLinks}" target="_blank" ui:field="termsOfSales">Terms of Sales</a>
+                        </g:HTMLPanel>
+                        <g:Anchor addStyleNames="{res.style.eiBlueAnchor}" target="_blank" ui:field="addFunds">Add Funds</g:Anchor>
+                    </g:HTMLPanel>
+                    <g:HTMLPanel ui:field="timeGridPanel" addStyleNames="{style.sliderBar}">
+                        <widget:TimeGrid width="100%" height="20px" ui:field="timeGrid"></widget:TimeGrid>
+                    </g:HTMLPanel>
+                </g:HTMLPanel>
+                <g:HTMLPanel addStyleNames="{style.commentOrderPanel}">
+                    <widgets:OrderStatusWidget visible="false" addStyleNames="{style.orderStatusWidget}" ui:field="orderStatusWidget"></widgets:OrderStatusWidget>
+                    <widgets:MenuArrowedPanel addStyleNames="{style.actionWidget}" text="actions" ui:field="actions">
+                        <widget:IconLabel resource="{resCustomer.zoomLarge}" tooltip="Zoom to full extent" text="Zoom to order" spacing="10" addStyleNames="{style.actionButton}" ui:field="zoomOrder"></widget:IconLabel>
+                        <widget:IconLabel resource="{resCustomer.displayed}" tooltip="Display/hide all product orders from map" spacing="10" text="Show/hide products in map" addStyleNames="{style.actionButton}" ui:field="displayAll"></widget:IconLabel>
+                        <widget:IconLabel resource="{resCustomer.displayed}" tooltip="Display/hide all AoIs from map" spacing="10" text="Show/hide AoIs in map" addStyleNames="{style.actionButton}" ui:field="displayAllSelections"></widget:IconLabel>
+                        <widget:IconLabel visible="false" resource="{resCustomer.download}" tooltip="Create link to download all visible product orders" text="Push products to server" spacing="10" addStyleNames="{style.actionButton}" ui:field="downloadProducts"></widget:IconLabel>
+                    </widgets:MenuArrowedPanel>
+                    <g:Label addStyleNames="{style.comment}" ui:field="comment"></g:Label>
+                </g:HTMLPanel>
+                <g:HTMLPanel>
+                    <g:HTMLPanel ui:field="defaultPackage"></g:HTMLPanel>
+                    <g:HTMLPanel ui:field="packageLists"></g:HTMLPanel>
+                    <div style="margin: 10px;">
+                        <widget:IconAnchor resource="{res.addIcon}" visible="false" ui:field="addPackage">Add Package</widget:IconAnchor>
+                    </div>
+                </g:HTMLPanel>
+                <g:HTMLPanel ui:field="commentPanel">
+                    <p style="font-style: italic;">Comments on this order</p>
+                    <g:HTMLPanel ui:field="comments"></g:HTMLPanel>
+                </g:HTMLPanel>
+                <g:Label addStyleNames="{style.prepaidValue}" ui:field="prepaidValue"></g:Label>
+                <g:HTMLPanel>
+                    <p style="font-style: italic; font-size: 0.9em;">Your order can also be downloaded via FTP. Please <a href="mailto:earthimages@geocento.com?Subject=FTP Account">contact (earthimages@geocento.com)</a> our support team to obtain your user credentials.</p>
+                </g:HTMLPanel>
+            </g:HTMLPanel>
+        </widget:SwitchWidget>
+    </views:OrderTemplateViewImpl>
+</ui:UiBinder>

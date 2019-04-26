@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+
+        .panel {
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: normal;
+        }
+        .panel > * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <g:HTMLPanel addStyleNames="{style.panel}, gwt-ValueSpinner">
+        <span ui:field="text"></span>
+        <g:TextBox width="25px" ui:field="textBox"></g:TextBox>
+        <g:VerticalPanel ui:field="spinnerPanel">
+        </g:VerticalPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

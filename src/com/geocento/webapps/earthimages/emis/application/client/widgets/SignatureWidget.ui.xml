@@ -1,0 +1,109 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:widget="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:client="urn:import:com.google.gwt.canvas.client">
+    <ui:style>
+
+        .signature-pad {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            font-size: 10px;
+            border: 1px solid #e8e8e8;
+            background-color: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+            border-radius: 4px;
+            padding: 16px;
+        }
+
+        /*
+        .signature-pad::before,
+        .signature-pad::after {
+            position: absolute;
+            z-index: -1;
+            content: "";
+            width: 40%;
+            height: 10px;
+            bottom: 10px;
+            background: transparent;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .signature-pad::before {
+            left: 20px;
+            -webkit-transform: skew(-3deg) rotate(-3deg);
+            transform: skew(-3deg) rotate(-3deg);
+        }
+
+        .signature-pad::after {
+            right: 20px;
+            -webkit-transform: skew(3deg) rotate(3deg);
+            transform: skew(3deg) rotate(3deg);
+        }
+        */
+
+        .signature-pad-body {
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            border: 1px solid #888888;
+            border-radius: 4px;
+        }
+
+        .signature-pad-body canvas {
+            margin: 0;
+            padding: 0;
+        }
+
+        .signature-pad-footer {
+            color: #C3C3C3;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 8px;
+        }
+
+        .signature-pad-actions {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .description {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+    </ui:style>
+    <ui:with field="commonRes" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources"></ui:with>
+    <g:HTMLPanel>
+        <widget:MessageLabel ui:field="loadingMessage"></widget:MessageLabel>
+        <g:HTMLPanel ui:field="signaturePadPanel" addStyleNames="{style.signature-pad}">
+            <g:HTMLPanel addStyleNames="{style.signature-pad-body}">
+                <client:Canvas width="500px" height="250px" coordinateSpaceWidth="500" coordinateSpaceHeight="250" ui:field="canvas"></client:Canvas>
+            </g:HTMLPanel>
+            <div class="{style.signature-pad-footer">
+                <div class="{style.description}">Sign above</div>
+
+                <div class="{style.signature-pad-actions}">
+                    <div>
+                        <g:Button ui:field="clear">Clear</g:Button>
+                        <g:Button ui:field="undo">Undo</g:Button>
+                    </div>
+                    <div style="text-align: right;">
+                        <g:Anchor addStyleNames="{commonRes.style.eiOrangeAnchorButton}" ui:field="validate">Validate</g:Anchor>
+                    </div>
+                </div>
+            </div>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:l="urn:import:com.metaaps.webapps.libraries.client.widget"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.imagePanel {
+			padding: 25px;
+			max-width: 300px;
+		}
+		.imageForm {
+			margin: 10px 0px;
+		}
+	</ui:style>
+	<ui:with field="res" type="com.metaaps.webapps.libraries.client.widget.style.StyleResources" />
+	<g:FlowPanel addStyleNames="{style.imagePanel}" ui:field="imageFormPanel">
+		<g:Label addStyleNames="dialogTitle">Select a product</g:Label>
+		<g:FormPanel addStyleNames="{style.imageForm}" ui:field="imageForm">
+			<g:FlowPanel>
+				<g:FileUpload name="image" ui:field="uploadThumbnail"></g:FileUpload>
+				<g:TextBox visible="false" name="productId" ui:field="productId"></g:TextBox>
+			</g:FlowPanel>
+		</g:FormPanel>
+		<g:HTMLPanel>
+			<l:IconLabel ui:field="message"></l:IconLabel>
+		</g:HTMLPanel>
+		<g:HorizontalPanel addStyleNames="dialogButtons">
+			<g:Button ui:field="uploadImage">Upload</g:Button>
+			<g:Button ui:field="cancelImage">Cancel</g:Button>
+		</g:HorizontalPanel>
+	</g:FlowPanel>
+</ui:UiBinder>
