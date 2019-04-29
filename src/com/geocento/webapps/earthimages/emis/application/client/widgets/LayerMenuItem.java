@@ -16,6 +16,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.metaaps.webapps.libraries.client.widget.Tooltip;
 import com.metaaps.webapps.libraries.client.widget.style.StyleResources;
+import com.metaaps.webapps.libraries.client.widget.ValueSpinner;
 import com.metaaps.webapps.libraries.client.widget.util.*;
 
 import java.util.Date;

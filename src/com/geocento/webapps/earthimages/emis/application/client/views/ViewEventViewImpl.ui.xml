@@ -192,7 +192,7 @@
     </ui:style>
     <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources"></ui:with>
     <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
-    <views:OrderTemplateViewImpl ui:field="templateView">
+    <views:EventTemplateViewImpl ui:field="templateView">
         <widget:SwitchWidget ui:field="switchPanels">
             <g:HTMLPanel ui:field="passwordPanel">
                 <h1>Password protected order</h1>
@@ -248,5 +248,5 @@
                 </g:HTMLPanel>
             </g:HTMLPanel>
         </widget:SwitchWidget>
-    </views:OrderTemplateViewImpl>
+    </views:EventTemplateViewImpl>
 </ui:UiBinder>

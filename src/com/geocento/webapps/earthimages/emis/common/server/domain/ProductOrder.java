@@ -17,8 +17,17 @@ public class ProductOrder {
     @Id
 	String id;
 
+    // the corresponding EI order ID if any
+    @Column(length = 100)
+    String eiOrderId;
+
     @ManyToOne
-    Order order;
+    EventOrder eventOrder;
+
+    // the user who first started the order
+    // useful for admin account control
+    @ManyToOne
+    User owner;
 
     @Enumerated(EnumType.STRING)
     PRODUCTORDER_STATUS status;
@@ -122,16 +131,24 @@ public class ProductOrder {
         return id;
     }
 
-    public Order getOrder() {
-        return order;
+    public EventOrder getEventOrder() {
+        return eventOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setEventOrder(EventOrder eventOrder) {
+        this.eventOrder = eventOrder;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getEiOrderId() {
+        return eiOrderId;
+    }
+
+    public void setEiOrderId(String eiOrderId) {
+        this.eiOrderId = eiOrderId;
     }
 
     public PRODUCTORDER_STATUS getStatus() {
@@ -360,5 +377,13 @@ public class ProductOrder {
 
     public String getComments() {
         return comments;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

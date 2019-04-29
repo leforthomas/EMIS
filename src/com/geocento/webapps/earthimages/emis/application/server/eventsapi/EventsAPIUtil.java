@@ -1,7 +1,11 @@
 package com.geocento.webapps.earthimages.emis.application.server.eventsapi;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.geocento.webapps.earthimages.emis.application.server.imageapi.EIAPIUtil;
 import com.geocento.webapps.earthimages.emis.application.server.utils.APIUtils;
+import com.geocento.webapps.earthimages.emis.common.server.utils.AWSUtils;
 import com.geocento.webapps.earthimages.emis.common.server.utils.Utils;
 import com.geocento.webapps.earthimages.emis.common.share.EIException;
 import com.google.gson.*;

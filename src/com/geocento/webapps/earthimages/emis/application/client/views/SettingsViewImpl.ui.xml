@@ -1,0 +1,256 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:lib="urn:import:com.metaaps.webapps.libraries.client.widget"
+             xmlns:widget="urn:import:com.geocento.webapps.earthimages.emis.application.client.widgets"
+             xmlns:view="urn:import:com.geocento.webapps.earthimages.emis.application.client.views"
+             xmlns:editor="urn:import:com.metaaps.webapps.libraries.client.property.editor"
+             xmlns:widgets="urn:import:com.geocento.webapps.earthimages.emis.common.client.widgets"
+>
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.SettingsViewImpl.Style">
+
+        @external active;
+
+        .contentPanel {
+            margin: auto;
+            max-width: 960px;
+        }
+
+        .settingsPanel {
+
+        }
+
+        .sideMenu {
+            color: #596875;
+            font-size: 1.1em;
+            /*font-weight: bold;*/
+            margin: 5px;
+            padding: 5px 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .sideMenu:hover {
+            background: #F0F0F8;
+            cursor: pointer;
+        }
+
+        .sideMenusList .active {
+            border-right: 3px solid #a4a6a8;
+        }
+
+        ul.sideMenusList {
+            width: 99%;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ul.sideMenusList li {
+            width: 99%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .passwordBoxes {
+            width: 150px;
+        }
+
+        .validation {
+            padding: 10px 0px;
+        }
+
+        .messageLabel {
+            margin: 20px 10px;
+        }
+
+        .title {
+            padding: 10px 0px;
+            font-size: 1.2em;
+        }
+
+        .navigationToolbar {
+            float: right;
+            margin-right: 10px;
+        }
+
+        table.transactionsHistory {
+            width: 99%;
+            border: 1px solid #aaa;
+        }
+
+        table.transactionsHistory tr:first-child td {
+            font-weight: bold;
+        }
+
+        table.transactionsHistory tr td {
+            border: 1px solid #eee;
+        }
+
+        table.transactionsHistory tr td {
+            border: 1px solid #eee;
+        }
+
+        .actionButton {
+            display: inline-block;
+        }
+
+        .footer {
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .addFunds {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .currentFunds {
+        }
+
+        .informationLinks {
+            text-decoration: underline !important;
+            color: blue !important;
+        }
+
+        .creditCardPanel {
+            margin-top: 30px;
+        }
+
+        .minAmountLabel {
+
+        }
+
+        .vatMessage {
+            margin: 10px 5px 30px 15px;
+            font-style: italic;
+        }
+
+    </ui:style>
+    <ui:with field="res" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
+    <ui:with field="libRes" type="com.metaaps.webapps.libraries.client.widget.style.StyleResources"></ui:with>
+    <view:EILiteTemplateView ui:field="templateView">
+        <view:widgets>
+            <lib:IconLabel resource="{resCustomer.manageAccounts}" text="Manage Account"></lib:IconLabel>
+        </view:widgets>
+        <lib:SwitchWidget ui:field="switchMainPanel">
+            <lib:MessageLabel addStyleNames="{style.messageLabel}" ui:field="messageLabel"></lib:MessageLabel>
+            <g:HTMLPanel addStyleNames="{style.contentPanel}" ui:field="contentPanel">
+                <div style="margin-top: 30px; padding: 0px;" class="row-fluid">
+                    <div class="span3">
+                        <p style="padding: 7px; font-size: 1.2em;">Personal settings</p>
+                        <ul class="{style.sideMenusList}">
+                            <li>
+                                <g:Label addStyleNames="{style.sideMenu}" ui:field="information">Personal Information</g:Label>
+                            </li>
+                            <li>
+                                <g:Label addStyleNames="{style.sideMenu}" ui:field="password">Password</g:Label>
+                            </li>
+                            <li>
+                                <g:Label addStyleNames="{style.sideMenu}" ui:field="payments">Payment means</g:Label>
+                            </li>
+                            <li>
+                                <g:Label addStyleNames="{style.sideMenu}" ui:field="transactions">Balance and transactions</g:Label>
+                            </li>
+                            <li>
+                                <g:Label addStyleNames="{style.sideMenu}" ui:field="documentation">Documentation</g:Label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span9">
+                        <lib:SwitchWidget ui:field="switchWidget">
+                            <g:HTMLPanel ui:field="informationPanel">
+                                <p class="{style.title}">Your Personal Information</p>
+                                <editor:PropertiesEditor ui:field="propertyWidget"></editor:PropertiesEditor>
+                                <div style="margin: 30px 0px;">
+                                    <g:Anchor addStyleNames="{res.style.actionAnchorButton}, {style.actionButton}" ui:field="savePersonalChanges">Save Changes</g:Anchor>
+                                </div>
+                            </g:HTMLPanel>
+                            <g:HTMLPanel ui:field="passwordPanel">
+                                <p class="{style.title}">Change your password</p>
+                                <lib:ValidationEditor addStyleNames="{style.validation}" ui:field="validation">
+                                    <g:HTMLPanel>
+                                        <table cellpadding="10">
+                                            <tr>
+                                                <td>Current Password</td>
+                                                <td>
+                                                    <g:PasswordTextBox addStyleNames="{style.passwordBoxes}" ui:field="currentPassword"></g:PasswordTextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>New Password</td>
+                                                <td>
+                                                    <g:PasswordTextBox addStyleNames="{style.passwordBoxes}" ui:field="newPassword"></g:PasswordTextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Confirm</td>
+                                                <td>
+                                                    <g:PasswordTextBox addStyleNames="{style.passwordBoxes}" ui:field="newPasswordConfirm"></g:PasswordTextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </g:HTMLPanel>
+                                </lib:ValidationEditor>
+                                <div style="margin: 30px 0px;">
+                                    <g:Anchor addStyleNames="{res.style.actionAnchorButton}, {style.actionButton}" ui:field="savePasswordChanges">Update Password</g:Anchor>
+                                </div>
+                            </g:HTMLPanel>
+                            <g:HTMLPanel ui:field="meansPaymentsPanel">
+                                <p class="{style.title}">Registered Means of Payments</p>
+                                <g:HTMLPanel ui:field="paymentMeansPanel"></g:HTMLPanel>
+                            </g:HTMLPanel>
+                            <g:HTMLPanel ui:field="paymentTransactionsPanel">
+                                <div style="margin-bottom: 50px;">
+                                    <p class="{style.title}">Prepaid account balance
+                                    </p>
+                                    <g:Label addStyleNames="{style.currentFunds}" ui:field="currentFunds"></g:Label>
+                                    <lib:SwitchWidget ui:field="switchPaymentPanel">
+                                        <g:Anchor addStyleNames="{res.style.actionAnchorButtonBlue}, {style.addFunds}" ui:field="addFunds">Add funds</g:Anchor>
+                                        <g:HTMLPanel addStyleNames="{style.creditCardPanel}" ui:field="creditCardPanel">
+                                            <p>Add funds to your prepaid account</p>
+                                            <g:HorizontalPanel spacing="10" verticalAlignment="middle">
+                                                <g:Label>Choose amount</g:Label>
+                                                <g:DoubleBox width="75px" ui:field="amount"></g:DoubleBox>
+                                                <g:Label ui:field="currency"></g:Label>
+                                                <g:Label ui:field="vatValue" text="+20% VAT"></g:Label>
+                                                <g:Label addStyleNames="{style.minAmountLabel}" ui:field="minAmountLabel"></g:Label>
+                                            </g:HorizontalPanel>
+                                            <g:Label addStyleNames="{style.vatMessage}" visible="false" ui:field="vatMessage" text="VAT 20% will be added to the amount of funds you select"></g:Label>
+                                            <widget:CreditCardWidget ui:field="creditCard">
+                                                <widget:footer>
+                                                    <g:HTMLPanel>
+                                                        <g:HTMLPanel>
+                                                            <p style="padding: 20px 10px; background: #fee;">
+                                                                <g:CheckBox ui:field="acceptTerms"></g:CheckBox>I accept the Geocento Ltd <a class="{style.informationLinks}" target="_blank" ui:field="termsOfSales">Terms of Sales</a>
+                                                            </p>
+                                                        </g:HTMLPanel>
+                                                    </g:HTMLPanel>
+                                                </widget:footer>
+                                            </widget:CreditCardWidget>
+                                            <widgets:LoadingAnchor addStyleNames="{res.style.actionAnchorButton}, {style.addFunds}" ui:field="addFundsPayment">Add funds</widgets:LoadingAnchor>
+                                        </g:HTMLPanel>
+                                    </lib:SwitchWidget>
+                                    <g:HTMLPanel ui:field="paymentMessagePanel"></g:HTMLPanel>
+                                </div>
+                                <g:HTMLPanel>
+                                    <g:HTMLPanel addStyleNames="{style.navigationToolbar}" ui:field="navigationTransactionsToolbarPanel"></g:HTMLPanel>
+                                    <p class="{style.title}">Payment transactions history
+                                    </p>
+                                </g:HTMLPanel>
+                                <g:HTMLPanel ui:field="paymentsHistoryPanel"></g:HTMLPanel>
+                            </g:HTMLPanel>
+                            <g:HTMLPanel ui:field="documentationPanel">
+                                <p class="{style.title}">Documentation provided</p>
+                                <g:FlowPanel ui:field="documentationList">
+                                    <g:HTMLPanel>Not available yet...</g:HTMLPanel>
+                                </g:FlowPanel>
+                            </g:HTMLPanel>
+                        </lib:SwitchWidget>
+                    </div>
+                </div>
+                <widget:Footer addStyleNames="{style.footer}" ui:field="footer"></widget:Footer>
+            </g:HTMLPanel>
+        </lib:SwitchWidget>
+    </view:EILiteTemplateView>
+</ui:UiBinder>

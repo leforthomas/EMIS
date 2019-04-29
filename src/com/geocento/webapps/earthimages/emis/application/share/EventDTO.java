@@ -1,7 +1,5 @@
 package com.geocento.webapps.earthimages.emis.application.share;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.geocento.webapps.earthimages.emis.common.share.entities.ORDER_STATUS;
 import com.metaaps.webapps.earthimages.extapi.server.domain.Product;
 
 import java.io.Serializable;
@@ -21,17 +19,17 @@ public class EventDTO implements Serializable {
     List<Product> productCandidates;
 
     // collected product orders
-    List<ProductOrderDTO> productOrders;
+    List<ProductOrderDTO> productsOrdered;
 
     public EventDTO() {
     }
 
-    public List<ProductOrderDTO> getProductOrders() {
-        return productOrders;
+    public List<ProductOrderDTO> getProductsOrdered() {
+        return productsOrdered;
     }
 
-    public void setProductOrders(List<ProductOrderDTO> productOrders) {
-        this.productOrders = productOrders;
+    public void setProductsOrdered(List<ProductOrderDTO> productsOrdered) {
+        this.productsOrdered = productsOrdered;
     }
 
     public String getId() {

@@ -23,7 +23,7 @@
         <class>com.geocento.webapps.earthimages.emis.common.server.domain.TaskingRequest</class>
         <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductEntity</class>
         <class>com.geocento.webapps.earthimages.emis.common.share.entities.UserOrderParameter</class>
-        <class>com.geocento.webapps.earthimages.emis.common.server.domain.Order</class>
+        <class>com.geocento.webapps.earthimages.emis.common.server.domain.EventOrder</class>
         <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductOrder</class>
         <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductSample</class>
         <class>com.geocento.webapps.earthimages.emis.common.server.domain.ProductFetchTask</class>

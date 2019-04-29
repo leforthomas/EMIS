@@ -144,7 +144,7 @@
     </ui:style>
     <ui:with field="res" type="com.geocento.webapps.earthimages.emis.common.client.style.StyleResources"></ui:with>
     <ui:with field="resCustomer" type="com.geocento.webapps.earthimages.emis.application.client.style.StyleResources"></ui:with>
-    <views:OrderTemplateViewImpl ui:field="templateView">
+    <views:EventTemplateViewImpl ui:field="templateView">
         <g:HTMLPanel addStyleNames="{style.content}" ui:field="content">
             <g:HTMLPanel>
                 <g:Anchor addStyleNames="{style.orderItems}, {resCustomer.style.actionAnchorButton}" ui:field="viewMap">Back To Search</g:Anchor>
@@ -180,5 +180,5 @@
             <widgets:OrdersList ui:field="ordersList">
             </widgets:OrdersList>
         </g:HTMLPanel>
-    </views:OrderTemplateViewImpl>
+    </views:EventTemplateViewImpl>
 </ui:UiBinder>

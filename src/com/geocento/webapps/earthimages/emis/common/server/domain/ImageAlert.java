@@ -26,7 +26,7 @@ public class ImageAlert implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     Date endDate;
     @ManyToOne
-    Order order;
+    EventOrder eventOrder;
     @Temporal(TemporalType.TIMESTAMP)
 	Date creationTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -99,12 +99,12 @@ public class ImageAlert implements Serializable {
         this.endDate = endDate;
     }
 
-    public Order getOrder() {
-        return order;
+    public EventOrder getEventOrder() {
+        return eventOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setEventOrder(EventOrder eventOrder) {
+        this.eventOrder = eventOrder;
     }
 
     public Date getCreationTime() {

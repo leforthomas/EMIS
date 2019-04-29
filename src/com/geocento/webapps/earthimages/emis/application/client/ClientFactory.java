@@ -18,4 +18,6 @@ public interface ClientFactory {
     ViewEventView getViewEventView();
 
     SignInView getSignInView();
+
+    SettingsView getSettingsView();
 }

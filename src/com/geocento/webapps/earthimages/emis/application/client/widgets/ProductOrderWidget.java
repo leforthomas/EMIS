@@ -1,6 +1,8 @@
 package com.geocento.webapps.earthimages.emis.application.client.widgets;
 
 import com.geocento.webapps.earthimages.emis.application.client.Application;
+import com.geocento.webapps.earthimages.emis.application.client.event.ProductOrderPlaceChange;
+import com.geocento.webapps.earthimages.emis.application.client.event.PublishProductOrder;
 import com.geocento.webapps.earthimages.emis.common.client.places.CustomHistorian;
 import com.geocento.webapps.earthimages.emis.common.share.entities.PRODUCTORDER_STATUS;
 import com.geocento.webapps.earthimages.emis.common.share.entities.PUBLICATION_STATUS;
@@ -10,6 +12,7 @@ import com.geocento.webapps.earthimages.emis.application.client.services.Custome
 import com.geocento.webapps.earthimages.emis.application.client.style.StyleResources;
 import com.geocento.webapps.earthimages.emis.application.share.*;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -43,7 +46,6 @@ public class ProductOrderWidget extends ProductBaseWidget {
     private final IconAnchor downloadingIcon;
     private final IconAnchor downloadIcon;
     private final IconAnchor publishDownloadIcon;
-    private final HTMLPanel dashboardSelection;
     private final IconLabel processing;
     private final ProductOrderStatusWidget status;
 
@@ -168,6 +170,7 @@ public class ProductOrderWidget extends ProductBaseWidget {
         publishDownloadIcon.setTarget("_blank");
         addBottomActions(publishDownloadIcon);
 
+/*
         // add dashboard selection
         dashboardSelection = new HTMLPanel("");
         IconLabel dashboardSelectionLabel = new IconLabel(StyleResources.INSTANCE.workspace(), "Workspaces ");
@@ -204,6 +207,7 @@ public class ProductOrderWidget extends ProductBaseWidget {
         });
         dashboardSelection.add(dashboardsSelectionWidget);
         addBottomActions(dashboardSelection);
+*/
         updateStatuses();
 
         // set draggable
@@ -240,7 +244,6 @@ public class ProductOrderWidget extends ProductBaseWidget {
         downloadingIcon.setVisible(false);
         downloadIcon.setVisible(false);
         publishDownloadIcon.setVisible(false);
-        dashboardSelection.setVisible(false);
         processing.setVisible(false);
         // set estimated price
         estimatedPrice.setVisible(false);
@@ -382,7 +385,6 @@ public class ProductOrderWidget extends ProductBaseWidget {
                                 publishDownloadIcon.setVisible(true);
                                 publishDownloadIcon.setHref(CustomHistorian.getHostPageBaseURL() + "api/download-product/download-processed/" + productOrder.getPublishedProducts().get(0).getPublishRequestId());
                                 publishDownloadIcon.setText("Download " + processingName);
-                                dashboardSelection.setVisible(true);
                                 updateWorkspaces();
                                 additionalProductPropertiesControls.clear();
                                 SelectionWidget selectionWidget = new SelectionWidget();
@@ -440,13 +442,6 @@ public class ProductOrderWidget extends ProductBaseWidget {
             public void onDragOver(DragOverEvent event) {
                 event.preventDefault();
                 // for security reasons drag over doesn't allow access to the data
-/*
-                String targetProductId = event.getData("text");
-                printLog("On drag over for target product id " + targetProductId + " and productId " + productId);
-                if(targetProductId != null && targetProductId.length() > 0 && !targetProductId.contentEquals(productId)) {
-                    addStyleName(style.dragOver());
-                }
-*/
                 addStyleName(style.dragOver());
             }
         }, DragOverEvent.getType());
@@ -465,7 +460,7 @@ public class ProductOrderWidget extends ProductBaseWidget {
                 String productId = event.getData("text");
                 if(targetProductId != null && targetProductId.length() > 0 && !targetProductId.contentEquals(productId)) {
                     setStyleName(style.dragOver(), false);
-                    EINEO.clientFactory.getEventBus().fireEvent(new ProductOrderPlaceChange(targetProductId, productId));
+                    Application.clientFactory.getEventBus().fireEvent(new ProductOrderPlaceChange(targetProductId, productId));
                 }
             }
         }, DropEvent.getType());
@@ -477,10 +472,12 @@ public class ProductOrderWidget extends ProductBaseWidget {
     }
 
     public void updateWorkspaces() {
+/*
         List<WorkspaceSummaryDTO> workspaces = productOrder.getWorkspaces();
         dashboardsSelectionWidget.setText(workspaces != null && workspaces.size() > 0 ?
                 (workspaces.size() + " - " + ListUtil.toString(workspaces, value -> {return value.getName();}, ",")) :
                 "no workspace selected");
+*/
     }
 
 }

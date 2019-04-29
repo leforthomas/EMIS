@@ -2,9 +2,7 @@ package com.geocento.webapps.earthimages.emis.application.client.widgets;
 
 import com.geocento.webapps.earthimages.emis.common.client.utils.Utils;
 import com.geocento.webapps.earthimages.emis.application.client.place.PlaceHistoryHelper;
-import com.geocento.webapps.earthimages.emis.application.client.place.SamplesPlace;
 import com.geocento.webapps.earthimages.emis.application.client.style.StyleResources;
-import com.geocento.webapps.earthimages.emis.application.client.utils.CartHelper;
 import com.geocento.webapps.earthimages.emis.application.client.utils.PolicyHelper;
 import com.geocento.webapps.earthimages.emis.application.client.utils.ProductDisplay;
 import com.geocento.webapps.earthimages.emis.application.share.ProductOrderDTO;
@@ -182,6 +180,7 @@ public class ProductCell extends AbstractCell<ProductDisplay> {
         sbButtons.append(value.isVisible() ? imageTemplates.cell(ACTIONS.HIDE.toString(), "Click to hide this product in the map", imgStyle, ICON_SELECTED) :
                 imageTemplates.cell(ACTIONS.DISPLAY.toString(), "Click to display this product in the map", imgStyle, ICON_UNSELECTED));
 
+/*
         if(CartHelper.isDownloadable(product)) {
             sbButtons.append(imageTemplates.cell(ACTIONS.DOWNLOAD.toString(), "Click to download this product", imgStyle, ICON_DOWNLOAD));
         } else if(CartHelper.isOrderable(product)) {
@@ -193,6 +192,7 @@ public class ProductCell extends AbstractCell<ProductDisplay> {
         } else {
             sbButtons.append(imageTemplates.cell(ACTIONS.NOACTION.toString(), "This product cannot be ordered, please contact us", imgStyle, ICON_CART_GRAYED));
         }
+*/
 
         if(archiveProduct) {
             if(value.isDisplayImage()) {
@@ -290,12 +290,6 @@ public class ProductCell extends AbstractCell<ProductDisplay> {
             htmlContent += addProperty("Polarisation Mode", formatString(product.getPolarisation()));
             htmlContent += addProperty("Incidence Angle", formatNumber(product.getOza(), "deg"));
         }
-        String sampleUrl = "./#" + PlaceHistoryHelper.convertPlace(new SamplesPlace(
-                Utils.generateTokens(SamplesPlace.TOKENS.instrumentIds.toString(), productDisplay.getProduct().getInstrumentId() + "")
-        ));
-        htmlContent += "<div style='padding: 10px 0px;'>" +
-                "There are samples for this product <a style='text-decoration: underline; margin-left: 10px;' href='" + sampleUrl + "' target='_blank'>View Samples</a>" +
-                "</div>";
         return htmlContent;
     }
 

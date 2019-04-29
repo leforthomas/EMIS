@@ -1,7 +1,6 @@
 package com.geocento.webapps.earthimages.emis.application.client.widgets;
 
-import com.geocento.webapps.earthimages.emis.application.client.EINEO;
-import com.geocento.webapps.earthimages.emis.application.client.event.ProductOrderPackageChange;
+import com.geocento.webapps.earthimages.emis.application.client.Application;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.resources.client.CssResource;
@@ -137,7 +136,7 @@ public class PackageWidget extends Composite implements HasWidgets {
                 String productId = event.getData("text");
                 if(productId != null && productId.length() > 0) {
                     content.setStyleName(style.dragOver(), false);
-                    EINEO.clientFactory.getEventBus().fireEvent(new ProductOrderPackageChange(productId, getPackageName()));
+                    //Application.clientFactory.getEventBus().fireEvent(new ProductOrderPackageChange(productId, getPackageName()));
                 }
             }
         }, DropEvent.getType());

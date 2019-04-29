@@ -1,8 +1,10 @@
 package com.geocento.webapps.earthimages.emis.application.client.views;
 
+import com.geocento.webapps.earthimages.emis.application.client.ClientFactory;
 import com.geocento.webapps.earthimages.emis.application.client.Application;
+import com.geocento.webapps.earthimages.emis.application.client.place.SettingsPlace;
 import com.geocento.webapps.earthimages.emis.application.client.widgets.MenuArrowedPanel;
-import com.geocento.webapps.earthimages.emis.application.client.widgets.TimeGrid;
+import com.geocento.webapps.earthimages.emis.application.share.*;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOI;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOIRectangle;
 import com.geocento.webapps.earthimages.emis.common.share.entities.ORDER_STATUS;
@@ -13,10 +15,6 @@ import com.geocento.webapps.earthimages.emis.application.client.place.PlaceHisto
 import com.geocento.webapps.earthimages.emis.application.client.style.StyleResources;
 import com.geocento.webapps.earthimages.emis.application.client.utils.UserLayersHelper;
 import com.geocento.webapps.earthimages.emis.application.client.widgets.*;
-import com.geocento.webapps.earthimages.emis.application.share.EULARequest;
-import com.geocento.webapps.earthimages.emis.application.share.Extent;
-import com.geocento.webapps.earthimages.emis.application.share.ProductOrderDTO;
-import com.geocento.webapps.earthimages.emis.application.share.WorkspaceSummaryDTO;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.AnchorElement;
@@ -45,6 +43,7 @@ import com.metaaps.webapps.libraries.client.property.domain.ChoiceProperty;
 import com.metaaps.webapps.libraries.client.property.domain.Property;
 import com.metaaps.webapps.libraries.client.property.domain.TextProperty;
 import com.metaaps.webapps.libraries.client.widget.*;
+import com.metaaps.webapps.libraries.client.widget.TimeGrid;
 import com.metaaps.webapps.libraries.client.widget.util.*;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
     Style style;
 
     @UiField(provided = true)
-    OrderTemplateViewImpl templateView;
+    EventTemplateViewImpl templateView;
     @UiField
     MessageLabel message;
     @UiField
@@ -154,13 +153,13 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
 
     public ViewEventViewImpl(final ClientFactory clientFactory) {
 
-        templateView = new OrderTemplateViewImpl(clientFactory);
+        templateView = new EventTemplateViewImpl(clientFactory);
 
         orderStatusWidget = new OrderStatusWidget();
 
         initWidget(ourUiBinder.createAndBindUi(this));
 
-        templateView.setStep(OrderTemplateViewImpl.ORDER_STEP.download);
+        templateView.setStep(EventTemplateViewImpl.ORDER_STEP.download);
 
         orderStatusWidget.setStatusChangeHandler(new ValueChangeHandler<ORDER_STATUS>() {
             @Override
@@ -564,7 +563,7 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
     }
 
     @Override
-    public OrderTemplateViewImpl getTemplateView() {
+    public EventTemplateViewImpl getTemplateView() {
         return templateView;
     }
 
@@ -753,30 +752,6 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
 
     @Override
     public void displayAddProductOrderWorkspace(ProductOrderDTO productOrder, List<WorkspaceSummaryDTO> workspaces) {
-        final WorkspacePopupPropertyEditor popup = WorkspacePopupPropertyEditor.getInstance();
-        boolean hasExistingOrders = workspaces.size() == 0;
-        String title = hasExistingOrders ? "Create new workspace" : "Add to workspace / create new workspace";
-        popup.editAt(null, Util.TYPE.right, title,
-                "You are about to create a new workspace, please provide the information below",
-                "Please select the workspace where the product will be added",
-                workspaces,
-                new WorkspacePopupPropertyEditor.Presenter() {
-                    @Override
-                    public void onCancel() {
-                        popup.hide();
-                    }
-
-                    @Override
-                    public void createNewWorkspace(String name, String additionalInformation) {
-                        popup.hide();
-                        presenter.createWorkspaceProduct(name, additionalInformation, productOrder);
-                    }
-
-                    @Override
-                    public void addToExistingWorkspace(String workspaceId) {
-                        presenter.addWorkspaceProduct(workspaceId, productOrder);
-                    }
-                });
     }
 
     @Override
@@ -925,6 +900,7 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
 
     @Override
     public void showLicensesRequired(List<EULARequest> policiesToSign) {
+/*
         licensesRequired.setVisible(true);
         licensesRequired.clear();
         licensesRequired.add(new HTML("<p>The following user licenses need signing: " +
@@ -940,6 +916,7 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
                 }, ", ") +
                 "</p>"
         ));
+*/
     }
 
     @Override
@@ -950,6 +927,11 @@ public class ViewEventViewImpl extends Composite implements ViewEventView, Resiz
             return;
         }
         productOrderWidget.updateThumbnail();
+    }
+
+    @Override
+    public void setEventDescription(EventDescription eventDescription) {
+
     }
 
     @Override

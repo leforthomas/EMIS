@@ -2,8 +2,18 @@ package com.geocento.webapps.earthimages.emis.application.server.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.geocento.webapps.earthimages.emis.application.share.CartProductDTO;
+import com.geocento.webapps.earthimages.emis.application.share.ProductMetadataDTO;
+import com.geocento.webapps.earthimages.emis.application.share.websockets.CreditUpdatedNotification;
+import com.geocento.webapps.earthimages.emis.application.share.websockets.ProductOrderNotification;
 import com.geocento.webapps.earthimages.emis.application.share.websockets.WebSocketMessage;
-import com.geocento.webapps.earthimages.emis.common.server.domain.UserSession;
+import com.geocento.webapps.earthimages.emis.application.share.websockets.WorkspaceProductPublishedNotification;
+import com.geocento.webapps.earthimages.emis.common.server.domain.*;
+import com.geocento.webapps.earthimages.emis.common.server.publishapi.ProductPublisherAPIUtil;
+import com.geocento.webapps.earthimages.emis.common.server.publishapi.PublishAPIUtils;
+import com.geocento.webapps.earthimages.emis.common.server.utils.Utils;
+import com.geocento.webapps.earthimages.productpublisher.api.dtos.ProductMetadata;
+import com.geocento.webapps.earthimages.productpublisher.api.dtos.PublishProcessProducts;
 import org.apache.log4j.Logger;
 
 import javax.websocket.*;
@@ -125,4 +135,117 @@ public class NotificationSocket extends BaseNotificationSocket {
         session.getBasicRemote().sendText(message);
     }
 
+
+    public static void notifyProductOrderStatusChanged(ProductOrder productOrder) {
+        try {
+            ProductOrderNotification productOrderNotification = new ProductOrderNotification();
+            productOrderNotification.orderId = productOrder.getEventOrder().getId();
+            productOrderNotification.productId = productOrder.getId();
+            productOrderNotification.status = productOrder.getStatus();
+            productOrderNotification.publishStatus = productOrder.getPublicationStatus();
+            try {
+                if(productOrder.getPublishProductRequests().size() > 0) {
+                    ProductPublishRequest publishRequest = productOrder.getPublishProductRequests().get(0);
+                    PublishProcessProducts publishProducts = ProductPublisherAPIUtil.getProductsPublished(publishRequest.getPublishTaskId());
+                    productOrderNotification.productServiceWMSUrl = Utils.getSettings().getProductServiceWMSURL().replace("$userName", publishProducts.getWorkspace());
+                    // TODO - change to have a list of products for each publishing
+                    ArrayList<ProductMetadataDTO> products = new ArrayList<ProductMetadataDTO>();
+                    for (ProductMetadata productMetadata : publishProducts.getGeneratedProductMetadas()) {
+                        products.add(PublishAPIUtils.convertProductMetadata(productMetadata, publishRequest));
+                    }
+                    productOrderNotification.publishedProducts = products;
+                    productOrderNotification.thumbnailUrl = productOrder.getThumbnailURL();
+                }
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+            // send notification
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setType(WebSocketMessage.TYPE.productOrderNotification);
+            webSocketMessage.setProductOrderNotification(productOrderNotification);
+            // TODO - restrict to users which have subscribed to the event
+            NotificationSocket.sendMessageToAll(webSocketMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public static void notifyCartProductsChanged(String userName, List<CartProductDTO> cartProducts) {
+        try {
+            // send notification
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setType(WebSocketMessage.TYPE.cartProductsChanged);
+            webSocketMessage.setCartProducts(cartProducts);
+            NotificationSocket.sendMessage(userName, webSocketMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public static void notifyWorkspaceProductPublished(Workspace workspace, ProductPublishRequest productPublishRequest) {
+        try {
+            WorkspaceProductPublishedNotification workspaceProductPublishedNotification = new WorkspaceProductPublishedNotification();
+            workspaceProductPublishedNotification.workspaceId = workspace.getId();
+            workspaceProductPublishedNotification.productPublishRequestId = productPublishRequest.getId();
+            workspaceProductPublishedNotification.publishStatus = productPublishRequest.getStatus();
+            String message = null;
+            switch (productPublishRequest.getStatus()) {
+                case Failed: {
+                    message = "Failed to process product in workspace " + workspace.getName();
+                } break;
+                case Published: {
+                    message = "Product processed in workspace " + workspace.getName();
+                    try {
+                        PublishProcessProducts publishProducts = ProductPublisherAPIUtil.getProductsPublished(productPublishRequest.getPublishTaskId());
+                        workspaceProductPublishedNotification.productThumbnailUrl = productPublishRequest.getThumbnailURL();
+                        workspaceProductPublishedNotification.productServiceWMSUrl = Utils.getSettings().getProductServiceWMSURL().replace("$userName", publishProducts.getWorkspace());
+                        // TODO - change to have a list of products for each publishing
+                        ArrayList<ProductMetadataDTO> products = new ArrayList<ProductMetadataDTO>();
+                        for (ProductMetadata productMetadata : publishProducts.getGeneratedProductMetadas()) {
+                            products.add(PublishAPIUtils.convertProductMetadata(productMetadata, productPublishRequest));
+                        }
+                        workspaceProductPublishedNotification.publishedProducts = products;
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                } break;
+            }
+            workspaceProductPublishedNotification.message = message;
+            // send notification
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setType(WebSocketMessage.TYPE.workspaceProductPublished);
+            webSocketMessage.setWorkspaceProductPublishedNotification(workspaceProductPublishedNotification);
+            NotificationSocket.sendMessageToAll(webSocketMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public static void notifyCreditsUpdated(User user) {
+        try {
+            Credit credit = user.getCredit();
+            CreditUpdatedNotification creditUpdatedNotification = new CreditUpdatedNotification();
+            creditUpdatedNotification.amount = credit.getCurrent();
+            creditUpdatedNotification.currency = credit.getCurrency();
+            // send notification
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setType(WebSocketMessage.TYPE.creditUpdated);
+            webSocketMessage.setCreditUpdatedNotification(creditUpdatedNotification);
+            NotificationSocket.sendMessageToAll(webSocketMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public static void notifyOrderChanged(User user, EventOrder eventOrder) {
+        try {
+            // send notification
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setType(WebSocketMessage.TYPE.orderNotification);
+            webSocketMessage.setOrderId(eventOrder.getId());
+            NotificationSocket.sendMessage(user.getUsername(), webSocketMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
 }

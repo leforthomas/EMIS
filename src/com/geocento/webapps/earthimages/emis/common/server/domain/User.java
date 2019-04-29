@@ -87,7 +87,7 @@ public class User {
     List<ImageAlert> imageAlerts;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "owner", cascade={CascadeType.ALL})
-    List<Order> orders;
+    List<EventOrder> eventOrders;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "owner", cascade={CascadeType.ALL})
     List<Workspace> workspaces;
@@ -249,12 +249,12 @@ public class User {
         this.imageAlerts = imageAlerts;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<EventOrder> getEventOrders() {
+        return eventOrders;
     }
 
-    public void setOrders(List<Order> users) {
-        this.orders = users;
+    public void setEventOrders(List<EventOrder> users) {
+        this.eventOrders = users;
     }
 
     public List<Workspace> getWorkspaces() {

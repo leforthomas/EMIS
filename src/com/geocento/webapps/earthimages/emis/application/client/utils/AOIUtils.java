@@ -7,8 +7,10 @@ import com.geocento.webapps.earthimages.emis.common.share.entities.AOIPolygon;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOIRectangle;
 import com.metaaps.webapps.libraries.client.map.EOBounds;
 import com.metaaps.webapps.libraries.client.map.EOLatLng;
+import com.metaaps.webapps.libraries.client.map.utils.GeometryUtils;
 import com.metaaps.webapps.libraries.client.widget.util.ListUtil;
 import com.metaaps.webapps.libraries.client.widget.util.StringUtils;
+import com.metaaps.webapps.libraries.client.widget.util.Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +34,7 @@ public class AOIUtils {
         // check area
         double area = getArea(aoi);
         if(area > maxArea) {
-            throw new EIException("Shape is too large, area is " + Utils.formatSurface(Utils.FORMAT.SQKILOMETERS, 0, area) + ", maximum is " + Utils.formatSurface(Utils.FORMAT.SQKILOMETERS, 0, maxArea));
+            throw new EIException("Shape is too large, area is " + com.metaaps.webapps.libraries.client.widget.util.Utils.formatSurface(com.metaaps.webapps.libraries.client.widget.util.Utils.FORMAT.SQKILOMETERS, 0, area) + ", maximum is " + com.metaaps.webapps.libraries.client.widget.util.Utils.formatSurface(Utils.FORMAT.SQKILOMETERS, 0, maxArea));
         }
         if(aoi instanceof AOIPolygon) {
             List<EOLatLng> points = ((AOIPolygon) aoi).getPoints();
@@ -47,9 +49,9 @@ public class AOIUtils {
     public static double getArea(AOI aoi) {
         if(aoi instanceof AOICircle) {
             AOICircle AOICircle = (AOICircle) aoi;
-            return com.metaaps.webapps.libraries.client.map.implementation.MapPanel.getPathArea(GeometryUtils.generateCircleCoordinates(AOICircle.getCenter(), AOICircle.getRadius(), true));
+            return com.metaaps.webapps.libraries.client.map.implementation.MapPanel.getPathArea(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.generateCircleCoordinates(AOICircle.getCenter(), AOICircle.getRadius(), true));
         } else if(aoi instanceof AOIRectangle) {
-            return com.metaaps.webapps.libraries.client.map.implementation.MapPanel.getPathArea(GeometryUtils.generateNonSphericalRectangleCoordinates(((AOIRectangle) aoi).getBounds(), true));
+            return com.metaaps.webapps.libraries.client.map.implementation.MapPanel.getPathArea(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.generateNonSphericalRectangleCoordinates(((AOIRectangle) aoi).getBounds(), true));
         } else if(aoi instanceof AOIPolygon) {
             List<EOLatLng> points = ((AOIPolygon) aoi).getPoints();
             EOLatLng[] coordinates = points.toArray(new EOLatLng[points.size()]);
@@ -72,7 +74,7 @@ public class AOIUtils {
     public static EOBounds getBounds(AOI aoi) {
         if(aoi instanceof AOICircle) {
             AOICircle AOICircle = (AOICircle) aoi;
-            return EOBounds.getBounds(GeometryUtils.generateCircleCoordinates(AOICircle.getCenter(), AOICircle.getRadius(), true));
+            return EOBounds.getBounds(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.generateCircleCoordinates(AOICircle.getCenter(), AOICircle.getRadius(), true));
         } else if(aoi instanceof AOIRectangle) {
             return ((AOIRectangle) aoi).getBounds();
         } else if(aoi instanceof AOIPolygon) {
@@ -113,8 +115,8 @@ public class AOIUtils {
                 throw new Exception("Could not parse wkt coordinates");
             }
             EOBounds eoBounds = new EOBounds();
-            eoBounds.extend(GeometryUtils.destination(points[0], 500, Math.toRadians(45)));
-            eoBounds.extend(GeometryUtils.destination(points[0], 500, Math.toRadians(225)));
+            eoBounds.extend(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.destination(points[0], 500, Math.toRadians(45)));
+            eoBounds.extend(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.destination(points[0], 500, Math.toRadians(225)));
             rectangle.setBounds(eoBounds);
             return rectangle;
         }
@@ -125,10 +127,10 @@ public class AOIUtils {
         if(aoi instanceof AOICircle) {
             EOLatLng center = ((AOICircle) aoi).getCenter();
             double radius = ((AOICircle) aoi).getRadius();
-            return "POLYGON((" + EOLatLng.toWKT(GeometryUtils.generateCircleCoordinates(Math.PI / 180 * center.getLat(), Math.PI / 180 * center.getLng(), radius, true)) + "))";
+            return "POLYGON((" + EOLatLng.toWKT(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.generateCircleCoordinates(Math.PI / 180 * center.getLat(), Math.PI / 180 * center.getLng(), radius, true)) + "))";
         } else if(aoi instanceof AOIRectangle) {
             EOBounds bounds = ((AOIRectangle) aoi).getBounds();
-            return "POLYGON((" + EOLatLng.toWKT(GeometryUtils.generateNonSphericalRectangleCoordinates(bounds, true)) + "))";
+            return "POLYGON((" + EOLatLng.toWKT(com.metaaps.webapps.libraries.client.map.utils.GeometryUtils.generateNonSphericalRectangleCoordinates(bounds, true)) + "))";
         } else if(aoi instanceof AOIPolygon) {
             List<EOLatLng> points = ((AOIPolygon) aoi).getPoints();
             GeometryUtils.ensureClosedPolygon(points);

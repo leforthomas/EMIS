@@ -6,7 +6,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
-import com.metaaps.webapps.libraries.client.widget.StateSelectedBox.SelectHandler;
+import com.metaaps.webapps.libraries.client.widget.StateSelectedBox;
 import com.metaaps.webapps.libraries.client.widget.util.Utils.SELECTION_STATE;
 
 public class SelectIconWidget<T> extends Composite {
@@ -42,7 +42,7 @@ public class SelectIconWidget<T> extends Composite {
 		return resource;
 	}
 
-    public void setSelectHandler(SelectHandler selectHandler) {
+    public void setSelectHandler(StateSelectedBox.SelectHandler selectHandler) {
         selectedBox.setSelectHandler(selectHandler);
     }
 	

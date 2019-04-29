@@ -2,17 +2,15 @@ package com.geocento.webapps.earthimages.emis.common.server.utils;
 
 import com.geocento.webapps.earthimages.emis.admin.server.publishapis.ProductDownloaderAPIUtil;
 import com.geocento.webapps.earthimages.emis.admin.server.publishapis.ProductPublisherAPIUtil;
+import com.geocento.webapps.earthimages.emis.application.client.utils.AOIUtils;
+import com.geocento.webapps.earthimages.emis.application.server.imageapi.EIAPIUtil;
+import com.geocento.webapps.earthimages.emis.application.server.utils.ProductRequestUtil;
 import com.geocento.webapps.earthimages.emis.common.server.Configuration;
 import com.geocento.webapps.earthimages.emis.common.server.domain.*;
-import com.geocento.webapps.earthimages.emis.common.server.publishapi.ProductDownloaderAPIUtil;
-import com.geocento.webapps.earthimages.emis.common.server.publishapi.ProductPublisherAPIUtil;
 import com.geocento.webapps.earthimages.emis.common.share.EIException;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOI;
 import com.geocento.webapps.earthimages.emis.common.share.entities.ORDER_STATUS;
 import com.geocento.webapps.earthimages.emis.common.share.entities.PRODUCTORDER_STATUS;
-import com.geocento.webapps.earthimages.emis.application.client.utils.AOIUtils;
-import com.geocento.webapps.earthimages.emis.application.server.imageapi.EIAPIUtil;
-import com.geocento.webapps.earthimages.emis.application.server.utils.ProductRequestUtil;
 import com.metaaps.webapps.earthimages.extapi.server.domain.Product;
 import com.metaaps.webapps.libraries.client.map.EOLatLng;
 import com.metaaps.webapps.libraries.client.map.utils.GeometryUtils;
@@ -41,12 +39,12 @@ public class OrderHelper {
 
     static private KeyGenerator keyGenerator = new KeyGenerator(16);
 
-    static public void updateOrderStatus(Order order) {
+    static public void updateOrderStatus(EventOrder eventOrder) {
         int completed = 0;
         int requested = 0;
         int inProduction = 0;
         int failed = 0;
-        for(ProductOrder productOrder : order.getProductOrders()) {
+        for(ProductOrder productOrder : eventOrder.getProductsOrdered()) {
             switch (productOrder.getStatus()) {
                 case Completed:
                     completed++;
@@ -60,11 +58,6 @@ public class OrderHelper {
                     break;
             }
         }
-        int totalProducts = order.getProductOrders().size();
-        order.setStatus(inProduction > 0 ? ORDER_STATUS.INPRODUCTION :
-                requested > 0 ? ORDER_STATUS.REQUESTED :
-                        failed == totalProducts ? ORDER_STATUS.FAILED :
-                                ORDER_STATUS.COMPLETED);
     }
 
     public static ProductRequest createProductRequest(String searchId, AOI aoi, Product product) {
@@ -158,21 +151,9 @@ public class OrderHelper {
                 (unitValue == null ? "" : unitValue));
     }
 
-    public static Order createOrder(String name, String additionalInformation) {
-        Order order = new Order();
-        order.setCreationTime(new Date());
-        order.setId(keyGenerator.CreateKey());
-        order.setName(name);
-        order.setDescription(additionalInformation);
-        order.setStatus(ORDER_STATUS.REQUESTED);
-        order.setLastUpdate(order.getCreationTime());
-        return order;
-    }
-
     public static File getProductDirectory(ProductOrder productOrder, boolean create) throws Exception {
         File productDirectory = new File(Configuration.getProperty(Configuration.APPLICATION_SETTINGS.baseOrdersFileDirectory) +
-                "/" + productOrder.getOrder().getOwner().getUsername() + "/orders/" +
-                productOrder.getOrder().getName() + "/");
+                "/" + productOrder.getEventOrder().getId() + "/orders/");
 
         if (create && !productDirectory.exists() && !productDirectory.mkdirs()) {
             throw new Exception("Could not create file directory " + productDirectory.getAbsolutePath());
@@ -211,10 +192,10 @@ public class OrderHelper {
             }
         }
 
-        Order order = productOrder.getOrder();
-        order.getProductOrders().remove(productOrder);
+        EventOrder eventOrder = productOrder.getEventOrder();
+        eventOrder.getProductsOrdered().remove(productOrder);
         em.remove(productOrder);
-        OrderHelper.updateOrderStatus(order);
+        OrderHelper.updateOrderStatus(eventOrder);
 
         //Trying to delete the product from the disk
         new File(productOrder.getFileLocation()).delete();

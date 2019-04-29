@@ -1,5 +1,7 @@
 package com.geocento.webapps.earthimages.emis.application.client.views;
 
+import com.geocento.webapps.earthimages.emis.application.client.ClientFactory;
+import com.geocento.webapps.earthimages.emis.application.client.utils.AOIUtils;
 import com.geocento.webapps.earthimages.emis.application.share.EventSummaryDTO;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOI;
 import com.geocento.webapps.earthimages.emis.common.share.entities.ORDER_STATUS;
@@ -47,7 +49,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
     Style style;
 
     @UiField(provided = true)
-    OrderTemplateViewImpl templateView;
+    EventTemplateViewImpl templateView;
     @UiField
     Label comment;
     @UiField
@@ -79,7 +81,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
 
         this.clientFactory = clientFactory;
 
-        templateView = new OrderTemplateViewImpl(clientFactory);
+        templateView = new EventTemplateViewImpl(clientFactory);
 
         ordersList = new OrdersList(new OrdersList.Presenter() {
             @Override
@@ -101,7 +103,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
             @Override
             public void selectOrder(EventSummaryDTO eventSummaryDTO) {
                 EventsViewImpl.this.selectOrder(eventSummaryDTO);
-                mapPanel.setEOBounds(eventSummaryDTO.getBounds());
+                mapPanel.setEOBounds(AOIUtils.getBounds(eventSummaryDTO.getAoi()));
             }
 
             @Override
@@ -123,7 +125,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
         initWidget(ourUiBinder.createAndBindUi(this));
 
         templateView.displayContent();
-        templateView.setStep(OrderTemplateViewImpl.ORDER_STEP.download);
+        templateView.setStep(EventTemplateViewImpl.ORDER_STEP.download);
 
         displayOrdersLoading("Loading...");
 
@@ -169,7 +171,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
     }
 
     private void zoomToOrder(EventSummaryDTO eventSummaryDTO) {
-        setMapBounds(eventSummaryDTO.getBounds());
+        setMapBounds(AOIUtils.getBounds(eventSummaryDTO.getAoi()));
     }
 
     @Override
@@ -212,9 +214,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
     public void selectOrder(EventSummaryDTO eventSummaryDTO) {
         ordersList.highlightOrder(eventSummaryDTO);
         mapPanel.clearFeatures();
-        List<AOI> aois = eventSummaryDTO.getAois();
-        for (AOI aoi : aois)
-            mapPanel.addFeature(aoi);
+        mapPanel.addFeature(eventSummaryDTO.getAoi());
         mapPanel.updateDisplay();
     }
 
@@ -231,7 +231,7 @@ public class EventsViewImpl extends Composite implements EventsView, ResizeHandl
     }
 
     @Override
-    public OrderTemplateViewImpl getTemplateView() {
+    public EventTemplateViewImpl getTemplateView() {
         return templateView;
     }
 

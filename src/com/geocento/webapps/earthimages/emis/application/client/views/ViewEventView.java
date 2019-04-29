@@ -109,7 +109,7 @@ public interface ViewEventView extends IsWidget {
         void handleWCSRequest(EOBounds bounds);
     }
 
-    OrderTemplateViewImpl getTemplateView();
+    EventTemplateViewImpl getTemplateView();
 
     void setPresenter(Presenter presenter);
 

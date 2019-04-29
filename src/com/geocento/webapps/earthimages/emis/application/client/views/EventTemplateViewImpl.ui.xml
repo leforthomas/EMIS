@@ -5,7 +5,7 @@
              xmlns:views="urn:import:com.geocento.webapps.earthimages.emis.application.client.views"
         >
     <ui:image field="cart" src="../style/img/cartIcon.png"/>
-    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.OrderTemplateViewImpl.Style">
+    <ui:style type="com.geocento.webapps.earthimages.emis.application.client.views.EventTemplateViewImpl.Style">
 
         .content {
             position: fixed;

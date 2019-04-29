@@ -6,6 +6,7 @@ import com.geocento.webapps.earthimages.emis.application.client.event.OrderDispl
 import com.geocento.webapps.earthimages.emis.application.client.place.EventsPlace;
 import com.geocento.webapps.earthimages.emis.application.client.place.PlaceHistoryHelper;
 import com.geocento.webapps.earthimages.emis.application.client.services.CustomerService;
+import com.geocento.webapps.earthimages.emis.application.client.utils.AOIUtils;
 import com.geocento.webapps.earthimages.emis.application.client.utils.HubspotChatHelper;
 import com.geocento.webapps.earthimages.emis.application.client.utils.SettingsHelper;
 import com.geocento.webapps.earthimages.emis.application.client.views.EventsView;
@@ -128,7 +129,7 @@ public class EventsActivity extends EMISTemplateActivity implements EventsView.P
                 if(eventSummaryDTOS.size() > 0) {
                     EventSummaryDTO eventSummaryDTO = eventSummaryDTOS.get(0);
                     eventsView.selectOrder(eventSummaryDTO);
-                    eventsView.setMapBounds(eventSummaryDTO.getBounds());
+                    eventsView.setMapBounds(AOIUtils.getBounds(eventSummaryDTO.getAoi()));
                 }
                 if(status.equals("ARCHIVED"))
                     eventsView.displayOrdersMessage("Found " + eventSummaryDTOS.size() + " archived orders");

@@ -2,6 +2,7 @@ package com.geocento.webapps.earthimages.emis.common.server; /**
  * Created by thomas on 23/07/2014.
  */
 
+import com.geocento.webapps.earthimages.emis.application.server.websocket.NotificationSocket;
 import com.geocento.webapps.earthimages.emis.common.server.domain.*;
 import com.geocento.webapps.earthimages.emis.common.server.mailing.MailContent;
 import com.geocento.webapps.earthimages.emis.common.server.publishapi.MethodValues;
@@ -25,7 +26,6 @@ import com.geocento.webapps.earthimages.productpublisher.api.dtos.PublishProduct
 import com.geocento.webapps.earthimages.productpublisher.api.dtos.PublishProductRequestResponse;
 import com.metaaps.webapps.earthimages.extapi.server.domain.Product;
 import com.metaaps.webapps.earthimages.extapi.server.domain.SearchRequest;
-import com.metaaps.webapps.earthimages.extapi.server.domain.policies.ProductPolicy;
 import com.metaaps.webapps.libraries.client.map.EOLatLng;
 import com.metaaps.webapps.libraries.client.widget.util.ListUtil;
 import com.vividsolutions.jts.geom.Geometry;
@@ -238,15 +238,15 @@ public class ContextListener implements ServletContextListener,
                                         } catch (EIException e) {
                                             logger.error("Unable to send email for image alerts, reason is " + e.getMessage());
                                         }
-                                        Order order = imageAlert.getOrder();
-                                        if(order != null) {
+                                        EventOrder eventOrder = imageAlert.getEventOrder();
+                                        if(eventOrder != null) {
                                             AOIPolygon aoi = new AOIPolygon();
                                             aoi.setName("Area of interest");
                                             ((AOIPolygon) aoi).setPoints(ListUtil.toList(EOLatLng.parseWKT(search.getAoiWKT().replace("POLYGON((", "").replace("))", ""))));
                                             aoi.setId(null);
                                             em.persist(aoi);
                                             // add free products to next batch of processing
-                                            addProductsToOrder(em, order, imageAlert.getSearchId(), "Alert " + imageAlert.getName(), ListUtil.filterValues(products, new ListUtil.CheckValue<Product>() {
+                                            addProductsToOrder(em, eventOrder, imageAlert.getSearchId(), "Alert " + imageAlert.getName(), ListUtil.filterValues(products, new ListUtil.CheckValue<Product>() {
                                                 @Override
                                                 public boolean isValue(Product value) {
                                                     try {
@@ -277,7 +277,7 @@ public class ContextListener implements ServletContextListener,
         }, 1000, monitoringDelay);
     }
 
-    private void addProductsToOrder(EntityManager em, Order order, String searchId, String imageAlertName, List<Product> products, AOI aoi) {
+    private void addProductsToOrder(EntityManager em, EventOrder eventOrder, String searchId, String imageAlertName, List<Product> products, AOI aoi) {
         WKTReader wktReader = new WKTReader();
         WKTWriter wktWriter = new WKTWriter();
         List<ProductOrder> orderedProducts = new ArrayList<ProductOrder>();
@@ -296,12 +296,12 @@ public class ContextListener implements ServletContextListener,
             em.persist(productRequest);
             ProductOrder productOrder = OrderHelper.createProductOrder(productRequest);
             productOrder.setSelectionGeometry(selectionWKT);
-            productOrder.setOrder(order);
+            productOrder.setEventOrder(eventOrder);
             productOrder.setThumbnailURL(product.getThumbnail());
             productOrder.setLabel(imageAlertName);
             em.persist(productOrder);
             orderedProducts.add(productOrder);
-            order.getProductOrders().add(productOrder);
+            eventOrder.getProductsOrdered().add(productOrder);
         }
         // create the fetch tasks associated
         for(ProductOrder productOrder : orderedProducts) {
@@ -488,26 +488,19 @@ public class ContextListener implements ServletContextListener,
                                     boolean freeProduct = PublishAPIUtils.isLocallyFetched(productOrder.getProductRequest().getSatelliteName());
                                     try {
                                         if(freeProduct) {
-                                            if(productOrder.getOrder().getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR) {
-                                                DownloadProductRequest downloadProductRequest = PublishAPIUtils.getDownloadProductRequest(productOrder);
-                                                downloadProductRequest.setCallbackUrl(Configuration.getProperty(Configuration.APPLICATION_SETTINGS.callBackUrlProductDownloader));
-                                                DownloadProductRequestResponse response = ProductDownloaderAPIUtil.createTask(downloadProductRequest);
-                                                productFetchTask.setDownloadTaskId(response.getTaskId());
-                                                if (response.getCode() < 300) {
-                                                    productFetchTask.setStatus(STATUS.downloading);
-                                                    productOrder.setStatus(PRODUCTORDER_STATUS.InProduction);
-                                                    statusHasChanged = true;
-                                                } else {
-                                                    // TODO - try again?
-                                                    productFetchTask.setStatus(STATUS.downloadingFailed);
-                                                    productFetchTask.setStatusMessage(response.getMessage());
-                                                    productOrder.setStatus(PRODUCTORDER_STATUS.Failed);
-                                                    statusHasChanged = true;
-                                                }
+                                            DownloadProductRequest downloadProductRequest = PublishAPIUtils.getDownloadProductRequest(productOrder);
+                                            downloadProductRequest.setCallbackUrl(Configuration.getProperty(Configuration.APPLICATION_SETTINGS.callBackUrlProductDownloader));
+                                            DownloadProductRequestResponse response = ProductDownloaderAPIUtil.createTask(downloadProductRequest);
+                                            productFetchTask.setDownloadTaskId(response.getTaskId());
+                                            if (response.getCode() < 300) {
+                                                productFetchTask.setStatus(STATUS.downloading);
+                                                productOrder.setStatus(PRODUCTORDER_STATUS.InProduction);
+                                                statusHasChanged = true;
                                             } else {
+                                                // TODO - try again?
                                                 productFetchTask.setStatus(STATUS.downloadingFailed);
-                                                productFetchTask.setStatusMessage("Unsufficient rights to request download of product");
-                                                productOrder.setStatus(PRODUCTORDER_STATUS.Rejected);
+                                                productFetchTask.setStatusMessage(response.getMessage());
+                                                productOrder.setStatus(PRODUCTORDER_STATUS.Failed);
                                                 statusHasChanged = true;
                                             }
                                         } else {
@@ -523,8 +516,8 @@ public class ContextListener implements ServletContextListener,
                                 case planetCreated: {
                                     if(planetRequests++ < 5) {
                                         try {
-                                            // administrators use the demo account by default
-                                            boolean demoAccount = productOrder.getOrder().getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
+                                            // use the demo account by default
+                                            boolean demoAccount = productOrder.getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
                                             // check the image exists in 4 bands first
                                             PlanetAPI.PLATFORM platform = PlanetAPI.getPlatform(productOrder.getProductRequest().getProviderId(), demoAccount);
                                             PlanetAPI.ASSET_TYPE assetType = PlanetAPI.ASSET_TYPE.analytic;
@@ -575,7 +568,7 @@ public class ContextListener implements ServletContextListener,
                                     if(planetRequests++ < 5) {
                                         try {
                                             // administrators use the demo account by default
-                                            boolean demoAccount = productOrder.getOrder().getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
+                                            boolean demoAccount = productOrder.getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
                                             String downloadUrl = null;
                                             if(productFetchTask.getPlanetClipUrl() != null) {
                                                 downloadUrl = PlanetAPI.getDownloadClipUrl(productFetchTask.getPlanetClipUrl(), demoAccount);
@@ -693,8 +686,8 @@ public class ContextListener implements ServletContextListener,
                                         // TODO - find a way to get the product type
                                         publishProductRequest.setProductType(method.productType);
                                         publishProductRequest.setAoi(productOrder.getSelectionGeometry());
-                                        publishProductRequest.setWorkspace(productOrder.getOrder().getOwner().getUsername());
-                                        publishProductRequest.setLayerName(productOrder.getOrder().getId() + "_" + productOrder.getId());
+                                        publishProductRequest.setWorkspace(productOrder.getEventOrder().getId());
+                                        publishProductRequest.setLayerName(productOrder.getId());
                                         publishProductRequest.setCallbackUrl(Configuration.getProperty(Configuration.APPLICATION_SETTINGS.callBackUrlProductPublisher));
                                         boolean local = Configuration.getBooleanProperty(Configuration.APPLICATION_SETTINGS.localPublisher);
                                         if (local) {
@@ -788,7 +781,7 @@ public class ContextListener implements ServletContextListener,
                                 } break;
                             }
                             // check if order status needs update
-                            OrderHelper.updateOrderStatus(productOrder.getOrder());
+                            OrderHelper.updateOrderStatus(productOrder.getEventOrder());
                             em.getTransaction().commit();
                             // now run the task if any
                             if(productTask != null) {
@@ -895,7 +888,7 @@ public class ContextListener implements ServletContextListener,
             em.getTransaction().begin();
             try {
                 // administrators use the demo account by default
-                boolean demoAccount = productOrder.getOrder().getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
+                boolean demoAccount = productOrder.getOwner().getUserRole() == USER_ROLE.ADMINISTRATOR;
                 // copy the file locally
                 File productDirectory = OrderHelper.getProductDirectory(productOrder, true);
                 boolean isOrderV2 = Configuration.getBooleanProperty(Configuration.APPLICATION_SETTINGS.planetOrderV2);

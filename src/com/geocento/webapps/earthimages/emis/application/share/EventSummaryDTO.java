@@ -15,29 +15,17 @@ public class EventSummaryDTO implements Serializable {
 
     private String id;
     private String name;
-    private ORDER_STATUS status;
-    private boolean showInfo;
-    private String thumbnail;
-    private Date creationDate;
+    private AOI aoi;
     private String description;
-    private EOBounds bounds;
+    private String thumbnail;
+    private Date startDate;
+    private Date endDate;
+    private Date creationDate;
     private int numOfProducts;
-    private List<AOI> aois;
 
-    public String getName() {
-        return name;
-    }
+    private boolean showInfo;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ORDER_STATUS getStatus() {
-        return status;
-    }
-
-    public void setStatus(ORDER_STATUS status) {
-        this.status = status;
+    public EventSummaryDTO() {
     }
 
     public String getId() {
@@ -48,28 +36,20 @@ public class EventSummaryDTO implements Serializable {
         this.id = id;
     }
 
-    public boolean isShowInfo() {
-        return showInfo;
+    public String getName() {
+        return name;
     }
 
-    public void setShowInfo(boolean showInfo) {
-        this.showInfo = showInfo;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public AOI getAoi() {
+        return aoi;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setAoi(AOI aoi) {
+        this.aoi = aoi;
     }
 
     public String getDescription() {
@@ -80,33 +60,51 @@ public class EventSummaryDTO implements Serializable {
         this.description = description;
     }
 
-    public EOBounds getBounds()
-    {
-        return bounds;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setBounds(EOBounds bounds)
-    {
-        this.bounds = bounds;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public int getNumOfProducts()
-    {
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public int getNumOfProducts() {
         return numOfProducts;
     }
 
-    public void setNumOfProducts(int numOfProducts)
-    {
+    public void setNumOfProducts(int numOfProducts) {
         this.numOfProducts = numOfProducts;
     }
 
-    public List<AOI> getAois()
-    {
-        return aois;
+    public boolean isShowInfo() {
+        return showInfo;
     }
 
-    public void setAois(List<AOI> aois)
-    {
-        this.aois = aois;
+    public void setShowInfo(boolean showInfo) {
+        this.showInfo = showInfo;
     }
 }

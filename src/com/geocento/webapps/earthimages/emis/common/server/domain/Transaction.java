@@ -32,7 +32,7 @@ public class Transaction {
 
     // only for product order payments
     @ManyToOne
-    Order order;
+    EventOrder eventOrder;
 
     @Column(length = 1000)
     String comment;
@@ -75,12 +75,12 @@ public class Transaction {
         this.braintreeTransactionId = braintreeTransactionId;
     }
 
-    public Order getOrder() {
-        return order;
+    public EventOrder getEventOrder() {
+        return eventOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setEventOrder(EventOrder eventOrder) {
+        this.eventOrder = eventOrder;
     }
 
     public double getAmount() {

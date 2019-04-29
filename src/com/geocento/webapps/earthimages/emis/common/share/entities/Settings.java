@@ -129,6 +129,11 @@ public class Settings implements Serializable {
     @Column(length = 1000)
     private String hubSpotDealLink;
 
+    @Column(length = 200)
+    private String AWSKey;
+    @Column(length = 200)
+    private String AWSSecretKey;
+
     // slack integration
     @Column(length = 1000)
     private String slackClientID;
@@ -509,6 +514,22 @@ public class Settings implements Serializable {
 
     public void setXeroBrandingThemeID(String xeroBrandingThemeID) {
         this.xeroBrandingThemeID = xeroBrandingThemeID;
+    }
+
+    public String getAWSKey() {
+        return AWSKey;
+    }
+
+    public void setAWSKey(String AWSKey) {
+        this.AWSKey = AWSKey;
+    }
+
+    public String getAWSSecretKey() {
+        return AWSSecretKey;
+    }
+
+    public void setAWSSecretKey(String AWSSecretKey) {
+        this.AWSSecretKey = AWSSecretKey;
     }
 
     public String getHubSpotAPIKey() {

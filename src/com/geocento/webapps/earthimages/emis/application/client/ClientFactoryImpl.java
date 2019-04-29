@@ -19,6 +19,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
     private SignInViewImpl signInView = null;
 
+    private SettingsViewImpl settingsView = null;
+
     @Override
     public EventBus getEventBus() {
         return eventBus;
@@ -56,6 +58,14 @@ public class ClientFactoryImpl implements ClientFactory {
             signInView = new SignInViewImpl(this);
         }
         return signInView;
+    }
+
+    @Override
+    public SettingsView getSettingsView() {
+        if(settingsView == null) {
+            settingsView = new SettingsViewImpl(this);
+        }
+        return settingsView;
     }
 
 }

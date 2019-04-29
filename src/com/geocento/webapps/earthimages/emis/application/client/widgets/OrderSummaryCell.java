@@ -116,7 +116,7 @@ public class OrderSummaryCell extends AbstractCell<EventSummaryDTO> {
                 SafeHtmlUtils.fromTrustedString(value.getDescription() == null ? "no description provided" : value.getDescription()), //priceInformation,
                 sbButtons.toSafeHtml(),
                 numberOfProducts,
-                value.getStatus().toString());
+                "ACTIVE");
 
         sb.append(rendered);
 

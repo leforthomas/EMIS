@@ -3,6 +3,7 @@ package com.geocento.webapps.earthimages.emis.application.share;
 import com.geocento.webapps.earthimages.emis.common.share.entities.AOI;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class EventDescription implements Serializable  {
 
@@ -11,10 +12,8 @@ public class EventDescription implements Serializable  {
     String category;
     String country;
     String description;
-    String endDate;
     String notes;
     String place;
-    String startDate;
     String title;
     String today;
     String type;
@@ -22,6 +21,9 @@ public class EventDescription implements Serializable  {
     String update;
 
     AOI aoi;
+
+    Date startDate;
+    Date endDate;
 
     public EventDescription() {
     }
@@ -58,14 +60,6 @@ public class EventDescription implements Serializable  {
         this.description = description;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -80,14 +74,6 @@ public class EventDescription implements Serializable  {
 
     public void setPlace(String place) {
         this.place = place;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
     }
 
     public String getTitle() {
@@ -136,5 +122,21 @@ public class EventDescription implements Serializable  {
 
     public void setAoi(AOI aoi) {
         this.aoi = aoi;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

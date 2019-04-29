@@ -47,7 +47,7 @@ public class TransactionsHelper {
         PaymentTransactionDTO paymentTransactionDTO = new PaymentTransactionDTO();
         paymentTransactionDTO.setId(transaction.getId());
         paymentTransactionDTO.setType(transaction.getTransactionType());
-        paymentTransactionDTO.setOrderId(transaction.getOrder() == null ? null : transaction.getOrder().getId());
+        paymentTransactionDTO.setOrderId(transaction.getEventOrder() == null ? null : transaction.getEventOrder().getId());
         paymentTransactionDTO.setDescription(transaction.getComment());
         paymentTransactionDTO.setAmount(new Price(transaction.getAmount(), transaction.getCurrency()));
         if(!StringUtils.isEmpty(transaction.getInvoiceId())) {

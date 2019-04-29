@@ -144,7 +144,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
                 viewEventView.clearAll();
                 ViewEventActivity.this.eventDTO = result;
                 viewEventView.setEventDescription(eventDTO.getEventDescription());
-                List<ProductOrderDTO> productOrders = result.getProductOrders();
+                List<ProductOrderDTO> productOrders = result.getProductsOrdered();
                 // set time grid
                 // find the min and max
                 ProductOrderDTO product = productOrders.get(0);
@@ -175,7 +175,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
                 viewEventView.hideWindowLoading();
                 displayAllSelections(true);
                 displayAll(false);
-                zoomProducts(result.getProductOrders());
+                zoomProducts(result.getProductsOrdered());
             }
         });
     }
@@ -189,7 +189,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
             // check if we have products to pay for
             int productsToPay = 0;
             Price priceToPay = new Price(0, loginInfo.getPrepaidCurrency());
-            for (ProductOrderDTO productOrderDTO : eventDTO.getProductOrders()) {
+            for (ProductOrderDTO productOrderDTO : eventDTO.getProductsOrdered()) {
                 if (productOrderDTO.getStatus() == PRODUCTORDER_STATUS.Quoted) {
                     priceToPay.add(productOrderDTO.getConvertedOfferedPrice());
                     productsToPay++;
@@ -274,7 +274,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
     @Override
     public void handleWCSRequest(EOBounds bounds) {
         ProductOrderDTO selectedProductOrder = null;
-        for(ProductOrderDTO productOrder : eventDTO.getProductOrders()) {
+        for(ProductOrderDTO productOrder : eventDTO.getProductsOrdered()) {
             if(productOrder.isVisible()) {
                 EOBounds productBounds = EOBounds.getBounds(productOrder.getCoordinates());
                 if (bounds.intersects(productBounds)) {
@@ -358,7 +358,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
 
         handlers.add(viewEventView.getZoomOrder().addClickHandler(event -> {
             if(eventDTO != null) {
-                zoomProducts(eventDTO.getProductOrders());
+                zoomProducts(eventDTO.getProductsOrdered());
             }
         }));
 
@@ -390,7 +390,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
             }
             viewEventView.displayLoadingPage("Requesting payment...");
             HashMap<String, Price> productsPayment = new HashMap<>();
-            for (ProductOrderDTO productOrderDTO : eventDTO.getProductOrders()) {
+            for (ProductOrderDTO productOrderDTO : eventDTO.getProductsOrdered()) {
                 if (productOrderDTO.getStatus() == PRODUCTORDER_STATUS.Quoted) {
                     productsPayment.put(productOrderDTO.getId(), productOrderDTO.getConvertedOfferedPrice());
                 }
@@ -414,7 +414,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
 
     private void displayAll(boolean display) {
         if(eventDTO != null) {
-            for (ProductOrderDTO productOrderDTO : eventDTO.getProductOrders()) {
+            for (ProductOrderDTO productOrderDTO : eventDTO.getProductsOrdered()) {
                 productOrderDTO.setVisible(display);
                 viewEventView.updateProductOrderDisplay(productOrderDTO);
             }
@@ -424,7 +424,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
 
     private void displayAllSelections(boolean display) {
         if(eventDTO != null) {
-            for (ProductOrderDTO productOrderDTO : eventDTO.getProductOrders()) {
+            for (ProductOrderDTO productOrderDTO : eventDTO.getProductsOrdered()) {
                 if(productOrderDTO.getAOI() != null) {
                     productOrderDTO.getAOI().setVisible(display);
                 }
@@ -487,7 +487,7 @@ public class ViewEventActivity extends EMISTemplateActivity implements ViewEvent
         if(sameOrder) {
             // TODO - update status and values for product order
             // find product order
-            ProductOrderDTO productOrder = ListUtil.findValue(eventDTO.getProductOrders(), new ListUtil.CheckValue<ProductOrderDTO>() {
+            ProductOrderDTO productOrder = ListUtil.findValue(eventDTO.getProductsOrdered(), new ListUtil.CheckValue<ProductOrderDTO>() {
                 @Override
                 public boolean isValue(ProductOrderDTO value) {
                     return value.getId().equals(productOrderNotification.productId);

@@ -393,7 +393,7 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
                     productFetchTaskDTO.setPublishTaskId(productFetchTask.getPublishTaskId());
                     productFetchTaskDTO.setFetchDate(productFetchTask.getFetchDate());
                     productFetchTaskDTO.setProductOrderId(productFetchTask.getProductOrder().getId());
-                    productFetchTaskDTO.setOrderId(productFetchTask.getProductOrder().getOrder().getId());
+                    productFetchTaskDTO.setOrderId(productFetchTask.getProductOrder().getEventOrder().getId());
                     productFetchTaskDTO.setStatus(productFetchTask.getStatus());
                     productFetchTaskDTO.setStatusMessage(productFetchTask.getStatusMessage());
                     return productFetchTaskDTO;
@@ -497,7 +497,7 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
         productOrderDTO.setStatus(productOrder.getStatus());
         productOrderDTO.setDescription(productOrder.getDescription());
         productOrderDTO.setGeocentoId(productOrder.getProductRequest() == null ? null : productOrder.getProductRequest().getGeocentoid());
-        productOrderDTO.setOrderId(productOrder.getOrder().getId());
+        productOrderDTO.setOrderId(productOrder.getEventOrder().getId());
         productOrderDTO.setTitle(productOrder.getTitle());
         productOrderDTO.setCreated(productOrder.getCreationTime());
         return productOrderDTO;
@@ -552,8 +552,8 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
         EntityManager em = EMF.get().createEntityManager();
         try {
             em.getTransaction().begin();
-            Order order = em.find(Order.class, orderId);
-            if(order == null) {
+            EventOrder eventOrder = em.find(EventOrder.class, orderId);
+            if(eventOrder == null) {
                 throw new EIException("Order with id #" + orderId + "does not exist");
             }
             boolean geocentoIds = productId.length() == 32;
@@ -593,10 +593,10 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
                 }
             }
             productOrder.setPolicyId(policyId);
-            productOrder.setOrder(order);
-            order.getProductOrders().add(productOrder);
+            productOrder.setEventOrder(eventOrder);
+            eventOrder.getProductsOrdered().add(productOrder);
             em.persist(productOrder);
-            order.setLastUpdate(new Date());
+            eventOrder.setLastUpdate(new Date());
             em.getTransaction().commit();
         } catch (Exception e) {
             handleException(em, e);
@@ -608,22 +608,13 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
         }
     }
 
+    // TODO - needs to be removed
     @Override
     public String createNewOrder(String title, String description, String userName) throws EIException {
         ServerUtil.validateUserAdministrator(this.getThreadLocalRequest());
         EntityManager em = EMF.get().createEntityManager();
         try {
-            User user = em.find(User.class, userName);
-            if(user == null) {
-                throw new EIException("Unknown user " + userName);
-            }
-            em.getTransaction().begin();
-            Order order = OrderHelper.createOrder(title, description);
-            order.setOwner(user);
-            user.getOrders().add(order);
-            em.persist(order);
-            em.getTransaction().commit();
-            return order.getId();
+            return null;
         } catch (Exception e) {
             handleException(em, e);
             throw new EIException(e.getMessage());
@@ -763,18 +754,18 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
         try {
             em.getTransaction().begin();
             ProductOrder originalProductOrder = em.find(ProductOrder.class, productOrderId);
-            if(originalProductOrder.getOrder().getId().contentEquals(orderId)) {
+            if(originalProductOrder.getEventOrder().getId().contentEquals(orderId)) {
                 throw new EIException("Product order is already in order");
             }
-            Order order = em.find(Order.class, orderId);
-            if(order == null) {
+            EventOrder eventOrder = em.find(EventOrder.class, orderId);
+            if(eventOrder == null) {
                 throw new EIException("Order does not exist");
             }
             // create new product order
             ProductOrder productOrder = OrderHelper.createProductOrder(originalProductOrder.getProductRequest());
             // now assign to new order
-            productOrder.setOrder(order);
-            order.getProductOrders().add(productOrder);
+            productOrder.setEventOrder(eventOrder);
+            eventOrder.getProductsOrdered().add(productOrder);
             // duplicate and publish new product order
             File originalProductFile = new File(originalProductOrder.getFileLocation());
             File productDirectory = OrderHelper.getProductDirectory(productOrder, true);
@@ -792,7 +783,7 @@ public class AdministrationServiceImpl extends ProxyCompatibleRemoteServiceServl
             if(!copyProduct) {
                 OrderHelper.removeProductOrder(em, originalProductOrder);
             }
-            order.setLastUpdate(new Date());
+            eventOrder.setLastUpdate(new Date());
             em.getTransaction().commit();
             NotificationSocket.notifyProductOrderStatusChanged(productOrder);
             return productOrder.getId();

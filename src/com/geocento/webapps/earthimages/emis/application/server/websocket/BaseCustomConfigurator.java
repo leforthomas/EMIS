@@ -6,8 +6,8 @@ import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
 import java.text.MessageFormat;
 
-public class BaseCustomConfigurator extends ServerEndpointConfig.Configurator
-{
+public class BaseCustomConfigurator extends ServerEndpointConfig.Configurator {
+
     private HttpSession httpSession;
 
     // modifyHandshake() is called before getEndpointInstance()!

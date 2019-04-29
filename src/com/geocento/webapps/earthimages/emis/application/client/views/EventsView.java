@@ -44,7 +44,7 @@ public interface EventsView extends IsWidget {
 
     HasClickHandlers getSetFilter();
 
-    OrderTemplateViewImpl getTemplateView();
+    EventTemplateViewImpl getTemplateView();
 
     void setPresenter(Presenter presenter);
 

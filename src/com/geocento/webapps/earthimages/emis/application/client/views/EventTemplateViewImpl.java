@@ -33,11 +33,11 @@ import java.util.Iterator;
 /**
  * Created by thomas on 26/09/2014.
  */
-public class OrderTemplateViewImpl extends Composite implements OrderTemplateView, IsWidget, HasWidgets, ResizeHandler {
+public class EventTemplateViewImpl extends Composite implements OrderTemplateView, IsWidget, HasWidgets, ResizeHandler {
 
     private StyleResources styleResources = StyleResources.INSTANCE;
 
-    interface OrderTemplateViewUiBinder extends UiBinder<Widget, OrderTemplateViewImpl> {
+    interface OrderTemplateViewUiBinder extends UiBinder<Widget, EventTemplateViewImpl> {
     }
 
     private static OrderTemplateViewUiBinder ourUiBinder = GWT.create(OrderTemplateViewUiBinder.class);
@@ -98,7 +98,7 @@ public class OrderTemplateViewImpl extends Composite implements OrderTemplateVie
 
     private OrderDisplaySettingsWidget displaySettings;
 
-    public OrderTemplateViewImpl(final ClientFactory clientFactory) {
+    public EventTemplateViewImpl(final ClientFactory clientFactory) {
 
         this.clientFactory = clientFactory;
 

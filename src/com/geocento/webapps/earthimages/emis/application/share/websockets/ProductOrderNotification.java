@@ -20,6 +20,7 @@ public class ProductOrderNotification {
     public ArrayList<ProductMetadataDTO> publishedProducts;
     public String productServiceWMSUrl;
     public String thumbnailUrl;
+    public String orderId;
 
     public ProductOrderNotification() {
     }
